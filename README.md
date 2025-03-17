@@ -16,3 +16,23 @@
 - <b>compare_BN_HT.py</b> | Comparison script of the consensus network with the spiec-easi network being sparsificatied by association strength 
 ## Output
 - <F_KL-77_rel.csv> | the relative abundance matrix 
+
+## Setup Workflow
+- Setup your Python and R environment as described in this project: https://github.com/v-dinkel/FoodWeb_gLV
+    - 1. Setting Up the Python Environment (skip install Snakemake)
+    - 2. Setting Up the R Environment
+    
+- Clone this repository into your working directory
+    - git clone https://github.com/v-dinkel/MarineFoodWeb-sedaDNA
+
+- Open the config.txt and change workdir to match your folder path
+
+
+## Analysis Workflow
+- infer ESABO network
+    - open inferESABO.py in your editor e.g. Sypder run it
+    - output: the ESABO network
+
+- infer 6 other networks:
+    - 
+    

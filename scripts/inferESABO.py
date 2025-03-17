@@ -8,6 +8,16 @@ Created on Thu Apr 20 14:28:10 2023
 import numpy as np
 import pandas as pd
 
+def read_config(filename):
+    #read the config file of the project
+    config = {}
+    with open(filename, 'r') as file:
+        for line in file:
+            if line.strip() and not line.startswith("#"):  # Ignore empty lines or comments
+                key, value = line.strip().split(":", 1)
+                config[key.strip()] = value.strip()
+    return config
+
 def msum(A):
     # returns the sum of a matrix
     return int(np.sum(np.sum(A)))
@@ -70,14 +80,14 @@ def fillDiagonal(dataFrame):
         dataFrame.at[index,index] = 0
     return dataFrame
 
-workdir ="/home/viktor/project_migration/MarineFoodWeb-sedaDNA/"
-s_M = pd.read_csv(workdir+"input/F_KL-77.csv", delimiter=",", header=0, index_col=0)
+workdir = read_config("../config.txt")["workdir"]
+M = pd.read_csv(workdir+"input/F_KL-77.csv", delimiter=",", header=0, index_col=0)
 
 #compute ESABO adjacency matrix and save into output folder
-s_M_bin = binNorm(s_M)
-s_esaboM = corrESABOM(s_M_bin, 1.3)
-s_esaboM = fillDiagonal(s_esaboM)
-s_absEsabo = abs(s_esaboM.round().astype(int))
-s_absEsabo = s_absEsabo.where(s_absEsabo == 0, 1)
-print(msum(s_absEsabo))
-pd.DataFrame.to_csv(s_absEsabo, workdir+"output/KL-77_esabo.csv", sep=";")
+M_bin = binNorm(M)
+esaboM = corrESABOM(M_bin, 1.3)
+esaboM = fillDiagonal(esaboM)
+absEsabo = abs(esaboM.round().astype(int))
+absEsabo = absEsabo.where(absEsabo == 0, 1)
+print(msum(absEsabo))
+pd.DataFrame.to_csv(absEsabo, workdir+"output/KL-77_esabo.csv", sep=";")
