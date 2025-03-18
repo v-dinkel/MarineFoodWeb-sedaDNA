@@ -20,13 +20,12 @@
 ## Setup Workflow
 - Setup your Python and R environment as described in this project: https://github.com/v-dinkel/FoodWeb_gLV
     - 1. Setting Up the Python Environment (skip install Snakemake)
-    - 2. Setting Up the R Environment
+        - Open the config.txt and change workdir to match your folder path
+    - 2. Setting Up the R Environment. The corresponding R file in this project is 2_inferNetworks.R
+        - Open the 2_inferNetworks.R and change workdir to match your folder path
     
 - Clone this repository into your working directory
     - git clone https://github.com/v-dinkel/MarineFoodWeb-sedaDNA
-
-- Open the config.txt and change workdir to match your folder path
-
 
 ## Analysis Workflow
 - infer ESABO network
