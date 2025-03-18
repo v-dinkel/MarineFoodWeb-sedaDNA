@@ -1705,7 +1705,7 @@ if performHTComparison:
 
 plt.show()
 
-plotNet(tpos, tneg)
+#plotNet(tpos, tneg)
 exportToGephi(thisG, df_families, tpos, tneg, thisMods, path+"gephi_spieceasi_05.gml", trophicLevels)
 
 flowMetric = "A/DC"
@@ -1727,6 +1727,12 @@ sealevels = sealevel.iloc[ageindeces]["(m)"]
 
 #for com_i in range(0,4):
 flows, ascss, all_flows, all_mods_flows, lcc_lccs, lcc_maturity = flowIndeces(abunds, proxvals, trDict2, thisG.subgraph(lcc), flowMetric) #lcc #mods2["comms"][3]
+
+df_maturity = pd.DataFrame(lcc_maturity)
+df_maturity.index = ages
+df_maturity.index.name = "years_BP"
+df_maturity.to_csv(workdir+"supplementary_information/s5_maturity_lcc.csv", sep=',', index=True, encoding='utf-8')
+
 
 def corrMaturity(maturity, proxvals, sealevels):
     print ("Correlation ---- TEMP")
@@ -1766,7 +1772,7 @@ def plotMaturity(ax1, maturity, title):
 def plotMaturity2(ax1, maturity, title):
     #plots maturity for each parameter (all modules together for each parameter)
     #ax1.set_title(title)
-    labels = ["LCC", "Module 1","Module 3", "Module 6"]
+    labels = ["LCC", "IG1", "IG2", "GLC"]
         
     if title == "T":
         ytitle = "Total System Throughput\nTST"
@@ -1794,10 +1800,12 @@ def plotMaturity2(ax1, maturity, title):
         # correlation with ngrip
         ngrip_corr = scipy.stats.spearmanr(ngrip["temp"].values, maturity[i][title])
         sealevels_corr = scipy.stats.spearmanr(sealevels_centered, maturity[i][title])
+        thisMarker = None
         if ngrip_corr[1] <= 0.05:
             linestyle = 'solid'
             linewidth = 2
             ngrip_correlated = True
+            thisMarker = "o"
             corradd += "p_ngrip*" 
             if ngrip_corr[1] <= 0.01:
                 corradd += "*"
@@ -1807,6 +1815,7 @@ def plotMaturity2(ax1, maturity, title):
             linestyle = 'solid'
             linewidth = 2
             sealevel_correlated = True
+            thisMarker = "o"
             if ngrip_correlated:
                 corradd += ", "
             corradd += "p_rsl*" 
@@ -1838,7 +1847,7 @@ def plotMaturity2(ax1, maturity, title):
         #print(lm.pvalues)
         
         #ax1.vlines(grid_ages, min(maturity[i][title]), max(maturity[i][title]), color="lightgray")
-        ax1.plot(list(abunds.index), maturity[i][title], label=label+corradd, linestyle=linestyle, linewidth=linewidth, marker = "o", color = colmap[i])
+        ax1.plot(list(abunds.index), maturity[i][title], label=label+corradd, linestyle=linestyle, linewidth=linewidth, marker = None, color = colmap[i])
         #if ngrip_correlated:
         #    text = ax1.text(list(abunds.index)[-1]-1000, maturity[i][title][len(maturity[i][title]) -1 ], "*", color="red", size=20)
         #if sealevel_correlated:
@@ -1860,11 +1869,11 @@ grid_ages= [0, 20000, 40000, 60000, 80000, 100000, 120000]
 parameters = ["A/DC", "A", "DC"] #, "AMI", "H" "T",
 fig, axs = plt.subplots(len(parameters)+1,1, figsize=(10,10), sharex=True, sharey=False)
 #axs[0].vlines(grid_ages, min( ngrip["temp"].values), max( ngrip["temp"].values), color="lightgray")
-axs[0].plot(ngrip["age"].values, ngrip["temp"].values, color = "black", label="NGRIP", alpha =0.8, linewidth = 2, marker="o")
-axs[0].set_ylabel("Temperature\nNGRIP")
+axs[0].plot(ngrip["age"].values, ngrip["temp"].values, color = "black", label="NGRIP", alpha =0.8, linewidth = 2, marker=None)
+axs[0].set_ylabel("Centered \n NGRIP $ \delta ^{18O}$ (%)")
 ax2 = axs[0].twinx()
 #axs[1].vlines(grid_ages, min(sealevels), max(sealevels), color="lightgray")
-ax2.plot(ngrip["age"].values, sealevels, label="RSL", color = "black", linestyle="--", linewidth = 2, alpha =0.8, marker="o")
+ax2.plot(ngrip["age"].values, sealevels, label="RSL", color = "black", linestyle="--", linewidth = 2, alpha =0.8, marker=None)
 ax2.set_ylabel("Relative Sea Level\nRSL")
 axs[0].legend(loc="center", bbox_to_anchor=(.5,  .7))
 ax2.legend(loc="center", bbox_to_anchor=(.5, 0.55))
@@ -1879,7 +1888,7 @@ ax2.get_xaxis().set_visible(False)
 ax2.spines['bottom'].set_visible(False)
 
 mod_flows = []
-for com_i in [0,2,5]:
+for com_i in [0,5,2]:
     subgraph = thisG.subgraph(mods2["comms"][com_i])
     #if com_i == 6:
     #    subgraph = thisG.subgraph(list(mods2["comms"][2]) + list(mods2["comms"][4]) + list(mods2["comms"][6]))
