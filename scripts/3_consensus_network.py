@@ -15,6 +15,15 @@ import scipy.stats
 from collections import Counter
 import statsmodels.formula.api as smf
 
+def read_config(filename):
+    #read the config file of the project
+    config = {}
+    with open(filename, 'r') as file:
+        for line in file:
+            if line.strip() and not line.startswith("#"):  # Ignore empty lines or comments
+                key, value = line.strip().split(":", 1)
+                config[key.strip()] = value.strip()
+    return config
 
 def msum(A):
     return int(np.sum(np.sum(A)))
@@ -517,8 +526,10 @@ def entmischung(net, tops, tneg):
     
     return nPosLinks, nNegLinks, nMixedLinks
 
-workdir = 'C:/Users/vdinkel/Desktop/Manuscript/'
-metadir = workdir + "output/"
+# MAIN
+workdir = read_config("../config.txt")["workdir"]
+outputdir = workdir + "output/"
+suppdir = workdir + "supplementary_information/"
 methods = ['propr', 'ccrepe', 'spieceasi', 'esabo', 'ecocopula', 'sparcc', "spearman"]
 families_path = workdir+'input/families.csv'
 
@@ -526,73 +537,64 @@ families_path = workdir+'input/families.csv'
 df_families = pd.read_table(families_path, sep=";", header=None)
 trophicLevels = pd.read_csv(workdir+"input/trophic_levels.csv", delimiter=",", header=None, index_col=None)
 
-# relative abundance data
-s_M = pd.read_table(workdir+"output/F_KL-77_rel.csv", sep=";", header=0)
+# read relative abundance data
+M = pd.read_table(workdir+"output/F_KL-77_rel.csv", sep=";", header=0)
+abunds = M
 
 # Temperature correlation files
-s_ngrip = pd.read_table(metadir+"KL-77_ngrip.csv", sep=";", header=0)
-s_scorrs = pd.read_table(metadir+"KL-77_temp_spearman_corrs.csv", sep=";", header=1)
-s_scorrs_p = pd.read_table(metadir+"KL-77_temp_spearman_corrs_p.csv", sep=";", header=1)
+ngrip = pd.read_table(outputdir+"KL-77_ngrip.csv", sep=";", header=0)
+scorrs = pd.read_table(outputdir+"KL-77_temp_spearman_corrs.csv", sep=";", header=1)
+scorrs_p = pd.read_table(outputdir+"KL-77_temp_spearman_corrs_p.csv", sep=";", header=1)
 
-# heikes_path = basically workdir
-path = workdir+"output/"
-s_propr = pd.read_csv(path+"KL-77_propr.csv", delimiter=";", header=0, index_col=0)
-s_ccrepe = pd.read_csv(path+"KL-77_ccrepe.csv", delimiter=";", header=0, index_col=0)
-s_spieceasi = pd.read_csv(path+"KL-77_spieceasi.csv", delimiter=";", header=0, index_col=0)
-s_sparcc = pd.read_csv(path+"KL-77_sparcc.csv", delimiter=";", header=0, index_col=0)
-s_esabo = pd.read_csv(path+"KL-77_esabo.csv", delimiter=";", header=0, index_col=0)
-#s_ecocopula = pd.read_csv(path+"KL-77_ecocopula_ngrip.csv", delimiter=",", header=0, index_col=0)
-s_ecocopula = pd.read_csv(path+"KL-77_ecocopula.csv", delimiter=",", header=0, index_col=0)
-s_spearman = pd.read_csv(path+"KL-77_spearman.csv", delimiter=";", header=0, index_col=0)
+# read networks from /output/
+propr = pd.read_csv(outputdir+"KL-77_propr.csv", delimiter=";", header=0, index_col=0)
+ccrepe = pd.read_csv(outputdir+"KL-77_ccrepe.csv", delimiter=";", header=0, index_col=0)
+spieceasi = pd.read_csv(outputdir+"KL-77_spieceasi.csv", delimiter=";", header=0, index_col=0)
+sparcc = pd.read_csv(outputdir+"KL-77_sparcc.csv", delimiter=";", header=0, index_col=0)
+esabo = pd.read_csv(outputdir+"KL-77_esabo.csv", delimiter=";", header=0, index_col=0)
+spearman = pd.read_csv(outputdir+"KL-77_spearman.csv", delimiter=";", header=0, index_col=0)
+ecocopula = pd.read_csv(outputdir+"KL-77_ecocopula.csv", delimiter=",", header=0, index_col=0)
+#ecocopula = pd.read_csv(path+"KL-77_ecocopula_ngrip.csv", delimiter=",", header=0, index_col=0)
 
-s_methods_df = {"propr": s_propr, "ccrepe": s_ccrepe, "spieceasi": s_spieceasi,"esabo": s_esabo, "ecocopula": s_ecocopula, "sparcc": s_sparcc, "spearman": s_spearman}
+methods_df = {"propr": propr, "ccrepe": ccrepe, "spieceasi": spieceasi,"esabo": esabo, "ecocopula": ecocopula, "sparcc": sparcc, "spearman": spearman}
 
-s_sc_df = s_scorrs.T.iloc[1:]
-s_sc_pos = list(s_sc_df[s_sc_df > 0.3].dropna().index)
-s_sc_neg = list(s_sc_df[s_sc_df < -0.3].dropna().index)
+sc_df = scorrs.T.iloc[1:]
+tpos = list(sc_df[sc_df > 0.3].dropna().index)
+tneg = list(sc_df[sc_df < -0.3].dropna().index)
+scorrs = scorrs
 
 # SUPPLEMENTS: Families with NGRIP correlation
-ngrip_corrs = s_sc_df.copy(deep=True)
-ngrip_corrs.insert(1, "ngrip_p", list(s_scorrs_p.T.iloc[1:][0]), True)
+ngrip_corrs = sc_df.copy(deep=True)
+ngrip_corrs.insert(1, "ngrip_p", list(scorrs_p.T.iloc[1:][0]), True)
 ngrip_corrs.columns = ["ngrip_r", "ngrip_p"]
-ngrip_corrs.to_csv(workdir+"supplementary_information/families_ngrip_corrs.csv", sep=',', index=True, encoding='utf-8')
+ngrip_corrs.to_csv(suppdir+"families_ngrip_corrs.csv", sep=',', index=True, encoding='utf-8')
 # SUPPLEMENTS: Families with functions and trophic associations 
 fam_func_troph = df_families.copy(deep=True)
 fam_func_troph.insert(2, "trophic_level", [int(trophicLevels[trophicLevels[0] == k][1]) for k in list(df_families[1])], True)
 fam_func_troph.columns = ["family", "taxonomic_group", "trophic_level"]
-fam_func_troph.to_csv(workdir+"supplementary_information/families_trophic_functions.csv", sep=',', index=True, encoding='utf-8')
-
-# Experiment setup
-core = "stella"
-temptype = "SC"
-filename = core+"_"+temptype+"_logic_benchmarks_new.csv"
-
-methods_df = s_methods_df
-tpos = s_sc_pos
-tneg = s_sc_neg
-scorrs = s_scorrs
-abunds = s_M
-ngrip = s_ngrip
+fam_func_troph.to_csv(suppdir+"families_trophic_functions.csv", sep=',', index=True, encoding='utf-8')
 
 multiplex_A =  methods_df['propr'] + methods_df['spieceasi'] + methods_df['esabo'] + methods_df['sparcc'] + methods_df['spearman'] + methods_df['ecocopula'] + methods_df['ccrepe']
 nmult = 7
-multiplex_A = multiplex_A / nmult #max(multiplex_A.values.flatten())
+multiplex_A = multiplex_A / nmult
 combs = {}
 weighted_combs = {}
     
-method = "spieceasi"
-baseNet = methods_df[method]
-multNet = AND(methods_df[method], getMultiplexThresh(multiplex_A, 4/7))
+base_method = "spieceasi"
+baseNet = methods_df[base_method]
+multNet = AND(methods_df[base_method], getMultiplexThresh(multiplex_A, 4/7))
+G_base = nx.from_pandas_adjacency(baseNet)
+G_CN = nx.from_pandas_adjacency(multNet)
 
+# get modules and module statistics basedfrom base network alone and the consensus network.
 mods1 = modcorrs(baseNet, tpos, tneg, 0.0)
 mods2 = modcorrs(multNet, tpos, tneg, 0.0)
 
+# get linkage information, the likelihood of environmental nodes (ngrip positive/negative) to be linked together
 pre_nPosLinks, pre_nNegLinks, pre_nMixedLinks = entmischung(baseNet, tpos, tneg)
 post_nPosLinks, post_nNegLinks, post_nMixedLinks = entmischung(multNet, tpos, tneg)
 
-G_base = nx.from_pandas_adjacency(baseNet)
-G_masked = nx.from_pandas_adjacency(multNet)
-
+# POSITIVE / NEGATIVE LINKAGE
 print("-------------")
 print("Before | After")
 print("nodes: ", mods1["nodes"], " | ", mods2["nodes"])
@@ -606,15 +608,14 @@ print("posLinkage: ", pre_nPosLinks, " | ", post_nPosLinks, " ~~> ", post_nPosLi
 print("negLinkage: ", pre_nNegLinks, " | ", post_nNegLinks, " ~~> ", post_nNegLinks/pre_nNegLinks)
 print("mixedLinkage: ", pre_nMixedLinks, " | ", post_nMixedLinks, " ~~> ", post_nMixedLinks/pre_nMixedLinks)
 
-# make cold / warm networks
-print ("")
-print ("----- Cold | Warm statistics")
 
-thisNet = multNet#baseNet#multNet #baseNet # multNet
-thisG = G_masked#G_base#G_masked #G_base # G_masked
+# thisNet and thisG are adjacency matrices and graphs used in analysis. here it is the CN, but can be changed to other/modified networks
+thisNet = multNet
+thisG = G_CN
 thisMods = modcorrs(thisNet, tpos, tneg, 0.0)
 
-trDict = {"1": [], "2": [], "3": [], "4": []} # dictionary with trophic level as key
+# get the dictionaries to look up trophic levels of families
+trDict = {"1": [], "2": [], "3": [], "4": []} # dictionary with trophic level as key to get all families of a trophic level
 trDict2 = {} # dictionary with taxon as key and value = trophic level
 nodesList = list(thisG.nodes)
 for k in nodesList:
@@ -625,242 +626,30 @@ for k in nodesList:
         trDict2[k] = trLevel
     except:
         import pdb; pdb.set_trace()
-    
 
 
 np.warnings.filterwarnings('ignore')
 
-print ("----")
+# get single network coverage statistics of the CN network
+print ("Percentages of each network within the CN ----")
 for method in methods_df.keys():
-    print (method, ": ",msum(AND(multNet, methods_df[method])) / msum(multNet))
+    print (method, ": ", round(msum(AND(multNet, methods_df[method])) / msum(multNet),2))
 
-# HERE OLD PLOT OF NETWORK
-import random
-def plotNet(ps, ns):
-    
-    x_offset = 300
-    y_offset = 1000
-    comms = [list(k) if len(list(k))>1 else [] for k in thisMods['comms']]
-    #len(list(set([k[0] for k in thisG.edges])))
-    #l0 = (list(set([k[0] for k in thisG.edges])))
-    #l1 = (list(set([k[0] for k in thisG.edges])))
-    #import pdb; pdb.set_trace()
-    plt.figure(figsize=[18,10], dpi = 300)
-    pos = nx.spring_layout(thisG, center = [0,0], seed = 6, scale=1500) #4
-    #nx.draw_networkx_nodes(G_masked, pos)
-    #plt.show()
+print ("Percentages of how much each network is covered by the CN ----")
+for method in methods_df.keys():
+    print (method, ": ", round(msum(AND(multNet, methods_df[method])) / msum(methods_df[method]), 2))
 
-    trColors = ["#1D8348", "#D4AC0D", "#A04000", "#884EA0"]
-    trHeights = 500
-    
-    i = 0
-    flipFlop = 1
-    colorBy = "ngrip"#"bio"
-    
-    '''
-    for k in range(0,3):
-        if k == 0:
-            plt.axhline(y = y_offset*k+trHeights, color = 'r', linestyle = '-')
-        else:
-            plt.axhline(y = y_offset*k+trHeights, color = 'r', linestyle = '--')
-    '''
-    plt.axhspan(-500, 500, facecolor='0.2', alpha=0.1)
-    #plt.axhspan(500, 1500, facecolor=np.array([176/255,185/255, 58/255]), alpha=0.1)
-    plt.axhspan(1500, 2500, facecolor='0.2', alpha=0.1)
-    #plt.axhspan(2500, 3500, facecolor=np.array([217/255,33/255, 223/255]), alpha=0.1)
-    #plt.axvline(x = 0, color = 'r', linestyle = '-')
-    
-    nonemptycomms = [com for com in comms if len(com) > 2] #2
-    forwardI = [k for k in range(0, len(nonemptycomms))]
-    reverseI = [k for k in range(0, len(nonemptycomms))]
-    reverseI.reverse()
-    if (len(nonemptycomms) % 2) == 0:
-        sortedComms = reverseI[::2] + forwardI[::2] #reverseI[::2] + [k+1 for k in forwardI[::2] if k+1 <len(nonemptycomms)]
-    else:
-        sortedComms = reverseI[::2] + [k+1 for k in forwardI[::2] if k+1 <len(nonemptycomms)]
-    
-    maxNodeSize = 300
-    commPadding = 100
-    prevStartX = 0
-    prevEndX = 0
-    allTRs = {"1": [], "2": [], "3": [], "4": []}
-    
-    for comm in [nonemptycomms[comI] for comI in sortedComms]: #nonemptycomms
-    
-        colors = []
-        randCol = ["#"+''.join([random.choice('0123456789ABCDEF') for j in range(6)])][0]
-        trTaxa = {}
-        trLevels = {"1": [], "2": [], "3": [], "4": []}
-        trGrps = {"1": [], "2": [], "3": [], "4": []}
-        
-        # get trophic levels of community
-        for k in comm:
-            trGrp = df_families[df_families[0] == k][1].values[0]
-            trLevel = trophicLevels[trophicLevels[0] == trGrp][1].values[0]
-            trTaxa[k] = trLevel
-            trLevels[str(trLevel)].append(k)
-            trGrps[str(trLevel)].append(trGrp)
-            allTRs[str(trLevel)].append(k)
-        trCounts = Counter([trTaxa[k] for k in trTaxa.keys()])
-        maxCounts = trCounts.most_common()[0][1]
-        
-        node_sizes = dict(np.sum(abunds[comm])*maxNodeSize)
-        for key in node_sizes.keys():
-            node_sizes[key] = max(min(node_sizes[key], maxNodeSize), maxNodeSize/6)
-        moduleSizeSum = sum([node_sizes[k] for k in trLevels[str(trCounts.most_common()[0][0])]])
-        
-        commStartX = prevEndX
-        commEndX = commStartX + sum([node_sizes[k] for k in trLevels[str(trCounts.most_common()[0][0])]])
-        commWidth = abs(commEndX - commStartX)
-        prevStartX = commStartX
-        prevEndX = commEndX + commPadding
-        
-        ''' X AXIS '''
-        # spread across x width of the module
-        for tr in trLevels.keys():
-            taxaDict = {}
-            for tax in trLevels[tr]:
-                taxaDict[tax] = pos[tax][0]
-            taxaDict = {k: v for k, v in sorted(taxaDict.items(), key=lambda item: item[1])} # sorted
-            
-            if (len(trLevels[tr])-1) > 0:
-                spaceBetween = commWidth / (len(trLevels[tr])-1)
-            else:
-                spaceBetween = commWidth
-            
-            for tax in taxaDict.keys():
-                try:
-                    pos[tax][0] = int(commStartX+(spaceBetween * list(taxaDict.keys()).index(tax)))
-                except:
-                    import pdb; pdb.set_trace()
-        
-        ''' Y AXIS '''
-        for tr in trLevels.keys():
-            y_base =  y_offset*(int(tr)-1)
-            y_upper = y_base + trHeights - 100
-            y_lower = y_base - trHeights + 100
-            
-            taxaDict = {}
-            for tax in trLevels[tr]:
-                taxaDict[tax] = pos[tax][1]
-            taxaDict = {k: v for k, v in sorted(taxaDict.items(), key=lambda item: item[1])} # sorted
-            
-            try:
-                spaceBetween = abs(y_upper - y_lower) / (len(trLevels[tr])-1)
-            except:
-                spaceBetween = trHeights
-            for tax in taxaDict.keys():
-                pos[tax][1] = int(y_lower+(spaceBetween * list(taxaDict.keys()).index(tax)))
-            
-            #import pdb; pdb.set_trace()
-            
-        for k in comm:
-            
-            trLevel = trTaxa[k]
-            '''
-            y_base =  y_offset*(trLevel-1)
-            y_upper = y_base + trHeights
-            y_lower = y_base - trHeights
-            
-            y_uAttractor = y_upper - (trHeights/1.5)
-            y_lAttractor = y_lower + (trHeights/1.5)
-            
-            #posX = pos[k][0]+(x_offset*i*flipFlop)
-            posY = pos[k][1]+y_offset*(trLevel-1)
-            
-            posY = min(posY, y_upper-40) 
-            posY = max(posY, y_lower+40) 
-            
-            if abs(y_lAttractor - posY) > abs(y_uAttractor - posY): # upper attractor is closer
-                y_cAttractor = y_uAttractor
-            else:
-                y_cAttractor = y_lAttractor
-            posY = (posY - y_cAttractor)/1.3 + y_cAttractor
-            
-            pos[k][1] = posY#np.array([posX, posY])
-            '''
-            if colorBy == "module":
-                colors.append(randCol)  
-            if colorBy == "trophic":
-                colors.append(trColors[trLevel-1])  
-            if colorBy == "ngrip":
-                if k in ps:
-                    colors.append(np.array([0.9, 0.0, 0.0, 0.85]))  
-                elif k in ns:
-                    colors.append(np.array([0.0, 0.0, 0.7, 0.85]))
-                else:
-                    colors.append(np.array([0.7, 0.7, 0.7, 0.7]))
-            if colorBy == "bio":
-                if k in ps:
-                    colors.append(np.array([0.0, 0.39, 0.0, 0.7]))  
-                elif k in ns:
-                    colors.append(np.array([0.58, 0.0, 0.83, 0.7]))
-                else:
-                    colors.append(np.array([0.7, 0.7, 0.7, 0.7]))
-            
-        #plt.axvline(x = x_offset*i*flipFlop, color = 'gray', linestyle = 'dotted')
-        
-        
-        #
-        nx.draw_networkx_nodes(thisG, pos, nodelist=comm, node_color=colors, node_size=list(node_sizes.values()))
-        
-        #nx.draw_networkx_labels(thisG, labels={n: n for n in comm}, pos=pos, font_size=15)
-        for node in comm:
-            labelSize = max((node_sizes[node] / maxNodeSize)*13, 7)
-            plt.text(pos[node][0], pos[node][1], node, fontsize=labelSize, ha='center', va='center')
-        i+=1
-        flipFlop *= -1
-        
-        #import pdb; pdb.set_trace()
-    
-    edgecols = []
-    alphas = []
-    for edge in thisG.edges:
-        baseCol = np.array([0.7, 0.7, 0.7, 0.7])
-        if colorBy == "ngrip":
-            if edge[0] in ps or edge[1] in ps:
-                baseCol = np.array([0.9, 0.0, 0.0, 0.7])
-            if edge[0] in ns or edge[1] in ns:
-                baseCol = np.array([0.0, 0.0, 0.9, 0.7])
-            if (edge[0] in ps and edge[1] in ns) or (edge[0] in ns and edge[1] in ps):
-                baseCol = np.array([60/255, 0.0, 100/255, 0.7])
-        if colorBy == "bio":
-            if edge[0] in ps or edge[1] in ps:
-                baseCol = np.array([0.0, 0.9, 0.0, 0.85])
-            if edge[0] in ns or edge[1] in ns:
-                baseCol = np.array(np.array([0.58, 0.0, 0.83, 0.85]))
-            if (edge[0] in ps and edge[1] in ns) or (edge[0] in ns and edge[1] in ps):
-                baseCol = np.array([1.0, 0.0, 0.65, 1.0])
-        edgecols.append(baseCol)
-        alphas.append(multiplex_A[edge[0]][edge[1]])
-        #import pdb; pdb.set_trace()
-    
-    nx.draw_networkx_edges(thisG, pos, edge_color = edgecols, width=np.array(alphas)*2, alpha=np.array(alphas))
-    plt.xlim(0-150, commEndX+150)
-    plt.ylim(-500, 3500)
-    import time
-    obj = time.gmtime(0)
-    curr_time = round(time.time()*1000)
-    plt.savefig("C:/Users/vdinkel/Desktop/PhD/Presentations/networkVisialization/"+str(curr_time)+".png")
-    plt.show()
-    plt.close()
-#plotNet()
-
-#import pdb; pdb.set_trace()
-#for i in range(0,len(abunds)):
-#plotNetwork(False)
+# Export the CN to gephi format gml. Remove unconnected nodes before so only connected nodes are exported.
 G_new = nx.from_pandas_adjacency(multNet)
 degrees = list(G_new.degree)
 for deg in degrees:
     if deg[1] == 0:
         G_new.remove_node(deg[0])
-        #print("removed: ", deg[0])
-exportToGephi(G_new, df_families, tpos, tneg, thisMods, path+"cn_spieceasi_05.gml", trophicLevels)
+exportToGephi(G_new, df_families, tpos, tneg, thisMods, outputdir+"cn_spieceasi_05.gml", trophicLevels)
 
 # TROPHIC STATISTICS
-# 1 = 17.1; 2 = 3.5; 3 = 20.5; 4 = 0.9
+# 1 = 17.3; 2 = 3.5; 3 = 20.2; 4 = 0.9
 abunds[[k for k in trDict2.keys() if trDict2[k] == 1]].sum().sum()
-
 
 # COMMUNITY STATISTICS
 lcc = list(max(nx.connected_components(G_new), key=len))
@@ -870,6 +659,7 @@ degree_keystones = nx.eigenvector_centrality(G_new)
 df_modules = {}
 df_keystones = {}
 
+# compute (relative) trophic level, temperature correlations within a module etc.
 i = 1
 for thiscom in thisMods["comms"]:
     thiscom = list(thiscom)
@@ -883,165 +673,12 @@ for thiscom in thisMods["comms"]:
 df_modules = pd.DataFrame(df_modules)
 df_keystones = pd.DataFrame(df_keystones).T
 
-df_modules.to_csv(workdir+"supplementary_information/cn_modules.csv", sep=';', index=True, encoding='utf-8')
-df_keystones.to_csv(workdir+"supplementary_information/cn_centralities.csv", sep=';', index=True, encoding='utf-8')
-
-'''
-import plotly.graph_objects as go
-gephi_export_file = "C:/Users/vdinkel/Desktop/Manuscript/output/gephi_data_export.csv"
-gephi_data = pd.read_table(gephi_export_file, sep=";")
-community_file = "C:/Users/vdinkel/Desktop/Data/Manuscript/all_communities.csv"
-community_data = pd.read_table(community_file, sep=";")
-rank = "order"
-for comm_i in range(0,4):
-    print("Comm: ", comm_i)
-    print(community_data[community_data["community"] == comm_i][rank].value_counts())
-import copy
-
-import plotly.graph_objects as go
-import matplotlib.colors as pltclr
-# = ["0", "0", "1", "1", "0"]
-#target = [2, 3, 4, 5, 4]
-#value = [8, 2, 2, 8, 4]
-
-trColors = ["#009988", "#8ad963", "#0077BB", "#EE3377"] #33BBEE
-colors = {
-    "primary_producer": pltclr.to_rgba(trColors[0]),
-    "primary_consumer": pltclr.to_rgba(trColors[1]),
-    "secondary_consumer": pltclr.to_rgba(trColors[2]),
-    "tertiary_consumer": pltclr.to_rgba(trColors[3]),
-    "module1": pltclr.to_rgba("#5CD3FF"), #0077BB
-    "module234": pltclr.to_rgba("#FF6644"), #FF3F14 ##CC3311
-    }
-
-for key in colors.keys():
-    colors[key] = tuple([int(colors[key][0] * 255), int(colors[key][1] * 255), int(colors[key][2] * 255), 1.0])
-test = list(colors.keys())
-for key in test:
-    colors[key+"_l"] =tuple([colors[key][0], colors[key][1], colors[key][2], 0.6])
-
-for key in colors.keys():
-    colors[key] = 'rgba'+str(colors[key])
-
-label_id = {}
-id_label = {}
-
-id_count = 8
-
-id_label[4] = "1: Primary Producer"
-label_id["1: Primary Producer "] = 4
-id_label[5] = "2: Primary Consumer"
-label_id["2: Primary Consumer"] = 5
-id_label[6] = "3: Secondary Consumer"
-label_id["3: Secondary Consumer"] = 6
-id_label[7] = "4: Tertiary Consumer"
-label_id["4: Tertiary Consumer"] = 7
-
-for module_i in range(0,4):
-    id_label[module_i] = "Module "+str(module_i)
-    label_id["Module "+str(module_i)] = module_i
-    
-    value_counts = gephi_data[gephi_data["module"]==module_i]["taxonomic_group"].value_counts()
-    for k in range(0, len(value_counts.index)):
-        if value_counts.index[k] not in label_id.keys():
-            label_id[value_counts.index[k]] = id_count
-            id_label[id_count] = value_counts.index[k]
-            id_count += 1
-
-source = []
-target = []
-value = []
-link_cols = []
-trophic_levels_f = "C:/Users/vdinkel/Desktop/Data/Manuscript/input/trophic_levels.csv"
-trophic_levels = pd.read_table(trophic_levels_f, sep=",", header = None)
-# MODULE <-> TAXONOMIC GROUP
-for module_i in range(0,4):
-    value_counts = gephi_data[gephi_data["module"]==module_i]["taxonomic_group"].value_counts()
-    for i in range(0, len(value_counts)):
-        source.append(module_i)
-        target.append(label_id[value_counts.index[i]])
-        value.append(value_counts[i])
-        
-        troph_target = trophic_levels[trophic_levels[0] == value_counts.index[i]][1].values[0]
-        if troph_target == 1:
-            link_cols.append(colors["primary_producer_l"])
-        if troph_target == 2:
-            link_cols.append(colors["primary_consumer_l"])
-        if troph_target == 3:
-            link_cols.append(colors["secondary_consumer_l"])
-        if troph_target == 4:
-            link_cols.append(colors["tertiary_consumer_l"])
-
-# TAXONOMIC GROUP <-> TROPHIC LEVEL
-id_taxstart = id_count+1
-taxgrp_counts = dict(gephi_data["taxonomic_group"].value_counts())
-
-for i in range(0,len(trophic_levels)):
-    try:
-        source.append(label_id[trophic_levels[0][i]])
-        target.append(trophic_levels[1][i]+3)
-        value.append(taxgrp_counts[trophic_levels[0][i]])
-        
-        if trophic_levels[1][i]+3 == 4:
-            link_cols.append(colors["primary_producer_l"])
-        if trophic_levels[1][i]+3 == 5:
-            link_cols.append(colors["primary_consumer_l"])
-        if trophic_levels[1][i]+3 == 6:
-            link_cols.append(colors["secondary_consumer_l"])
-        if trophic_levels[1][i]+3 == 7:
-            link_cols.append(colors["tertiary_consumer_l"])
-            
-        #import pdb; pdb.set_trace()
-    except:
-        print ("catched: ", trophic_levels[0][i])
-
-node_colors = [colors["module1"], colors["module234"], colors["module234"], colors["module234"], colors["primary_producer"], colors["primary_consumer"], colors["secondary_consumer"], colors["tertiary_consumer"]]
-
-for lab in [id_label[k] for k in sorted(id_label)][8:]:
-    trlvl = trophic_levels[trophic_levels[0] == lab][1].values[0]
-    if trlvl == 1:
-        node_colors.append(colors["primary_producer_l"])
-    if trlvl == 2:
-        node_colors.append(colors["primary_consumer_l"])
-    if trlvl == 3:
-        node_colors.append(colors["secondary_consumer_l"])
-    if trlvl == 4:
-        node_colors.append(colors["tertiary_consumer_l"])
-
-
-# SANKEY DIAGRAM EXPORT
-fig = go.Figure(data=[go.Sankey(
-    orientation = "v",
-    node = dict(
-      pad = 20,
-      thickness = 80,
-      #y= [0.5 for k in range(0,len(source))],      #x= [0.2 for i in range(0,4)]+[0.2 for i in range(0,4)]+[0.5 for k in range(8,len(source))],
-      line = dict(color = "black", width = 1.1),
-      #label = [id_label[k] for k in sorted(id_label)],
-      color = node_colors
-    ),
-    link = dict(
-      source = source, # indices correspond to labels, eg A1, A2, A1, B1, ...
-      target = target,
-      value = value,
-      color = link_cols
-  ))])
-
-fig.update_layout(
-    hovermode = 'x',
-    title="<b>Module Composition</b><br />Distribution of Functional Groups and Trophic Levels in Major LCC Modules",
-    font=dict(size = 12, color = 'black'),
-    plot_bgcolor='white',
-    paper_bgcolor='white',
-    )
-
-fig.write_html("C:/Users/vdinkel/Desktop/Data/Manuscript/output/sankey-diagram-plotly_all.html")
-'''
+# export to supplementariy information
+df_modules.to_csv(suppdir+"cn_modules.csv", sep=';', index=True, encoding='utf-8')
+df_keystones.to_csv(suppdir+"cn_centralities.csv", sep=';', index=True, encoding='utf-8')
 
 # ROBUSTNESS
 from random import sample
-import copy
-import operator
 
 def getTrophicLevelDiversity(G):
     retlen = 0
@@ -1050,9 +687,6 @@ def getTrophicLevelDiversity(G):
     except:
         retlen = 0
     return retlen
-
-from collections import Counter
-import math
 
 def getRobustnessMetric(G):
     try:
@@ -1065,7 +699,6 @@ def getRobustnessMetric(G):
         metric = 0
     return metric
 
-#from networkx.algorithms.flow import shortest_augmenting_path
 def getMinimumCut(G):
     delVals = {}
     init_lcc = len(list(max(nx.connected_components(G), key=len)))
@@ -1077,7 +710,6 @@ def getMinimumCut(G):
     keys = [k for k, v in delVals.items() if v == minVal]
     return keys
         
-
 def minCut(G, normalized, critpath = []):
     minCuts = []
     init_lcc = list(max(nx.connected_components(G), key=len))
@@ -1223,7 +855,7 @@ def moduleRobustness(G, module, ndels, normalized = False, critpath = []):
     xlm = [k/10 for k in range(0,10)]
     ylm = [k * lm.params["x"] + lm.params["Intercept"] for k in xlm]
     print("LM: ", lm.params)
-    #import pdb; pdb.set_trace()
+
     plt.fill_between(xrands, rand_means + rand_stds, rand_means - rand_stds, alpha=0.1, color = "gray")
     #plt.fill_between(xtemps, temp_means + temp_stds, temp_means - temp_stds, alpha=0.1, color = "red")
     plt.plot(xrands, rand_means, linestyle="-", label="random targeted", marker = 'o', alpha=0.4, color="gray")
@@ -1234,8 +866,6 @@ def moduleRobustness(G, module, ndels, normalized = False, critpath = []):
     
     i = 0
     for label, value, color in minCuts:
-        #t = Affine2D().scale(skill).rotate_deg(takeoff)
-        #m = MarkerStyle(SUCCESS_SYMBOLS[mood], transform=t)
         if i == 0:
             m = "*"
             s = 10
@@ -1260,7 +890,7 @@ def moduleRobustness(G, module, ndels, normalized = False, critpath = []):
     df_mincuts.columns = ["extinction", "families_remaining", "color"]
     df_mincuts.index = xcuts
     df_mincuts.index.name = "knockouts"
-    df_mincuts.to_csv(workdir+"supplementary_information/mincuts_module_"+str(delmod+1)+".csv", sep=';', index=True, encoding='utf-8')
+    df_mincuts.to_csv(suppdir+"/mincuts_module_"+str(delmod+1)+".csv", sep=';', index=True, encoding='utf-8')
     plt.savefig(workdir+'plots/robustness_module_'+str(delmod+1)+'.png', format='png', dpi=1200)
     plt.show()
     
@@ -1324,6 +954,10 @@ def getLCCRobustness(G, module, ndels, normalized = False):
     return rand_means, rand_stds
 
 currmean = []
+# the NonBinTree generates a tree of all possible deletions. 
+# The leafs and their parents indicate which deletions fully disconnect the LCC.
+# The depth of a node is the amount of deletions. Hence the depth of a leaf is the amount of deletions until full disintegration.
+# Identifying Leafs with the lowest depth gives the critical path (fastest desintegration)
 class NonBinTree:
     def __init__(self, label, G, depth, parent):
         self.label = label
@@ -1363,7 +997,10 @@ class NonBinTree:
         
     def printPath(self):
         print ("[",self.depth,"] ", self.label," ", len(self.lcc))
-        self.parent.printPath()
+        try:
+            self.parent.printPath()
+        except:
+            print ("root")
     
     def getLeafAtDepth(self, depth):
         if self.leaf and self.depth==depth:
@@ -1389,47 +1026,59 @@ class NonBinTree:
 
     #def __repr__(self):
     #    return f"NonBinTree({self.lcc}): {self.nodes}"
-import itertools
-#testCom = list(thisMods['comms'][5])
-#robG = nx.subgraph(thisG, testCom).copy()
+
+runRobustness = True # change this to True if you want to perform the robustnes analysis. For large communities this can be very time consuming.
+if runRobustness:
+    # change the index to 0, 2 or 5 since these are the three community id's which are inspected
+    testCom = list(thisMods['comms'][5])
+    robG = nx.subgraph(thisG, testCom).copy()
+    
+    tree = NonBinTree("", robG, 0, None)
+    #first find at which (lowest) tree level leafs occur:
+    for i in range(0,10): 
+        these_leafs = []
+        tree.getLeafAtDepth(i)
+        if len(these_leafs) == 0:
+            pass
+        else:
+            print ("The fastest desintegration occurs after ", i, "deletions")
+            print ("There are ", len(these_leafs), " different critical paths with these leafs:")
+            print([k.label for k in these_leafs])
+            break
+        
+    # pick one leaf and inspect its parents (path)
+    leaf = these_leafs[5]
+    print ("-- critical path for leaf ", leaf.label)
+    for k in range(0, i):
+        print("---", leaf.label)
+        leaf = leaf.parent
+    
+# these paths were selected as examples 
 delpath_0 = ["Blenniidae", "Monodontidae", "Salmonidae", "Lateolabracidae", "Batrachoididae", "Petromyzontidae", "Sparidae"]
 delpath_2 = ["Phaeocystaceae", "Attheyaceae", "Bacillariaceae", "Ulnariaceae", "Eunotiaceae", "Gomphonemataceae", "Oxystominidae"]
 delpath_5 = ["Clupeidae", "Balaenopteridae", "Mytilidae", "Delphinidae"]
+
 #for dpath in delpath:
 #    robG.remove_node(dpath)
 #    this_lcc = list(max(nx.connected_components(robG), key=len))
 #    print(dpath, len(this_lcc))
 #    robG = nx.subgraph(robG, this_lcc).copy()
 
-#tree = NonBinTree("", robG, 0, None)
-#these_leafs = []
-#tree.getLeafAtDepth(4)
-#tree.getMinAtDepth(3)
-#import pdb; pdb.set_trace()
-
-runRobustness = False
 i = 0
 if runRobustness:
-    del_modules = [0, 2, 5]
-    del_critpaths = [delpath_0, delpath_2, delpath_5]
-    nruns = 1000
+    # get the robuistnes statistics including null distributions and plots for the selected paths
+    del_modules = [0, 2, 5] # ids of the modules
+    del_critpaths = [delpath_0, delpath_2, delpath_5] # selection of corresponding critical paths
+    nruns = 1000 # how many runs for the null distribution
     for delmod in del_modules:
         testCom = list(thisMods['comms'][delmod])
         lcc_G = nx.subgraph(thisG, list(max(nx.connected_components(thisG), key=len))).copy()
         rand_means, rand_stds = moduleRobustness(lcc_G, testCom, nruns, normalized = True, critpath = del_critpaths[i])
-        # rand_means, rand_stds = moduleRobustness(thisG, list(thisMods['comms'][0]), 100)
         i += 1
     lcc_G = nx.subgraph(thisG, list(max(nx.connected_components(thisG), key=len))).copy()
     getLCCRobustness(lcc_G, lcc_G.nodes, nruns, normalized = True)
-#import pdb; pdb.set_trace()
-AMIs = []
-AMI_comps = []
-As= []
-A_comps = []
-Ts = []
-ascEdgesL = []
-Hs = []
-T_states_L = []
+
+# FLOW METRICS: ASCNENDENCY
 
 def getFamMod(fam, mods):
     for i in range(0,7):
@@ -1589,11 +1238,20 @@ def flowIndeces(abunds, proxievals, trDict2, flowG, whichAscs):
     
     return retAscss, ascss, all_flows, all_mods_flows, lccs, maturity
 
+AMIs = []
+AMI_comps = []
+As= []
+A_comps = []
+Ts = []
+ascEdgesL = []
+Hs = []
+T_states_L = []
+
 # SPIECEASI WEIGHTED TEST
-performHTComparison = False
+performHTComparison = True
 if performHTComparison:
-    s_spieceasi_weighted = pd.read_csv(path+"KL-77_spieceasi_weighted.csv", delimiter=";", header=0, index_col=0)
-    s_spieceasi_edgelist = pd.read_csv(path+"KL-77_spieceasi_weighted_edgelist.csv", delimiter=";", header=0, index_col=0)
+    s_spieceasi_weighted = pd.read_csv(outputdir+"KL-77_spieceasi_weighted.csv", delimiter=";", header=0, index_col=0)
+    s_spieceasi_edgelist = pd.read_csv(outputdir+"KL-77_spieceasi_weighted_edgelist.csv", delimiter=";", header=0, index_col=0)
     #se_weighted = getMultiplexThresh(s_spieceasi_weighted, 0.3421) #0.327
     #mods3 = modcorrs(se_weighted, tpos, tneg, 0.0, globi_M)
     
@@ -1647,12 +1305,6 @@ if performHTComparison:
             
             print("G1 edges: ", len(G1.edges))
             print("G2 edges: ", len(G2.edges))
-        
-            #flow_G1, flow_G1_ascss, all_flows_G1 = flowIndeces(abunds, ngrip, trDict2, G1)
-            #flow_G2, flow_G2_ascss, all_flows_G2  = flowIndeces(abunds, ngrip, trDict2, G2)
-        
-            #g1_comps = [len(c) for c in sorted(nx.connected_components(G1), key=len, reverse=True)]
-            #g2_comps = [len(c) for c in sorted(nx.connected_components(G2), key=len, reverse=True)]
             
             alreadyPassed.append(msum(cn_j))
     
@@ -1662,9 +1314,10 @@ if performHTComparison:
             #all_compres.append(compres)
         else:
             pass
+    
     # SUPPLEMENTS: comparison of base network (cn) with high threshold of similar size (ht) 
     allcomps = pd.DataFrame(compres)
-    allcomps.to_csv(workdir+"supplementary_information/cn_ht_comparison.csv", sep=';', index=True, encoding='utf-8')
+    allcomps.to_csv(suppdir+"cn_ht_comparison.csv", sep=';', index=True, encoding='utf-8')
     
     allcomps = allcomps.T
     fig, axs = plt.subplots(2,1, figsize=(10,5), sharex=True, sharey=False)
@@ -1705,34 +1358,25 @@ if performHTComparison:
 
 plt.show()
 
-#plotNet(tpos, tneg)
-exportToGephi(thisG, df_families, tpos, tneg, thisMods, path+"gephi_spieceasi_05.gml", trophicLevels)
+# export the consensus network
+multNet.to_csv(outputdir+"consensus_network.csv", sep=';', index=True, encoding='utf-8')
+exportToGephi(thisG, df_families, tpos, tneg, thisMods, outputdir+"gephi_spieceasi_05.gml", trophicLevels)
 
 flowMetric = "A/DC"
 proxvals = ngrip["temp"].values
 ages = list(abunds.index)
-sealevel = pd.read_csv("C:/Users/vdinkel/Desktop/Manuscript/input/Grant_age_RSL_col_EF.txt", delimiter="\t")
+sealevel = pd.read_csv(workdir+"input/Grant_age_RSL_col_EF.txt", delimiter="\t")
 sealevel["(ka BP)"] = sealevel["(ka BP)"]* 1000
 ageindeces = [np.abs(sealevel["(ka BP)"] - k).argmin() for k in ages] # find closest ages from sealevel df
 sealevels = sealevel.iloc[ageindeces]["(m)"]
 
-
-#grant_EF[("(ka BP)")] = grant_EF[("(ka BP)")]*1000
-#newageindeces = [np.abs(grant_EF[("(ka BP)")] - k).argmin() for k in ages] # find closest ages from sealevel df
-#sealevels = grant_EF.iloc[newageindeces]["(m)"].values
-
-#excludeFams = ["Bovichtidae", "Hapalosiphonaceae", "Nostocaceae", "Salpingoecidae", "Microcoleaceae", "Oscillatoriaceae"]
-#for exFam in excludeFams:
-#    lcc.remove(exFam)
-
-#for com_i in range(0,4):
+# compute the flow metrics for the LCC of the network
 flows, ascss, all_flows, all_mods_flows, lcc_lccs, lcc_maturity = flowIndeces(abunds, proxvals, trDict2, thisG.subgraph(lcc), flowMetric) #lcc #mods2["comms"][3]
 
 df_maturity = pd.DataFrame(lcc_maturity)
 df_maturity.index = ages
 df_maturity.index.name = "years_BP"
 df_maturity.to_csv(workdir+"supplementary_information/s5_maturity_lcc.csv", sep=',', index=True, encoding='utf-8')
-
 
 def corrMaturity(maturity, proxvals, sealevels):
     print ("Correlation ---- TEMP")
@@ -1746,30 +1390,6 @@ def corrMaturity(maturity, proxvals, sealevels):
     return {"temp": [np.round(rt,2) , np.round(pt,2)], "sealevel": [np.round(r,2), np.round(p,2)]}
 
 def plotMaturity(ax1, maturity, title):
-    # plots maturity for each module spererately
-    ax2 = ax1.twinx()
-    ax1.set_title(title)
-    for key in maturity.keys():
-        if key != "T" and key != "A/DC":
-            ax1.plot(list(abunds.index), maturity[key], label=key, linestyle='dashed', linewidth=1,)
-        else:
-            ax2.plot(list(abunds.index), maturity[key], label=key)
-            #ax2.set_ylabel("XY", color="black")
-    
-        #ax1.set_ylabel(flowMetric, color="black")
-    ax1.legend()
-    ax2.legend()
-    
-    ax1.get_xaxis().set_visible(False)
-    ax2.get_xaxis().set_visible(False)
-    
-    ax1.spines['top'].set_visible(False)
-    ax1.spines['bottom'].set_visible(False)
-    
-    ax2.spines['top'].set_visible(False)
-    ax2.spines['bottom'].set_visible(False)
-
-def plotMaturity2(ax1, maturity, title):
     #plots maturity for each parameter (all modules together for each parameter)
     #ax1.set_title(title)
     labels = ["LCC", "IG1", "IG2", "GLC"]
@@ -1793,19 +1413,16 @@ def plotMaturity2(ax1, maturity, title):
     print(title, "\t", "ngrip_R", "\t", "ngrip_P", "\t", "sealevel_R", "\t", "sealevel_P")
     for label in labels:
         ngrip_correlated = False
-        sealevel_correlated = False
         linestyle='dashed'
         linewidth = 1
         corradd = ""
         # correlation with ngrip
         ngrip_corr = scipy.stats.spearmanr(ngrip["temp"].values, maturity[i][title])
         sealevels_corr = scipy.stats.spearmanr(sealevels_centered, maturity[i][title])
-        thisMarker = None
         if ngrip_corr[1] <= 0.05:
             linestyle = 'solid'
             linewidth = 2
             ngrip_correlated = True
-            thisMarker = "o"
             corradd += "p_ngrip*" 
             if ngrip_corr[1] <= 0.01:
                 corradd += "*"
@@ -1814,8 +1431,6 @@ def plotMaturity2(ax1, maturity, title):
         if sealevels_corr[1] <= 0.05:
             linestyle = 'solid'
             linewidth = 2
-            sealevel_correlated = True
-            thisMarker = "o"
             if ngrip_correlated:
                 corradd += ", "
             corradd += "p_rsl*" 
@@ -1823,7 +1438,7 @@ def plotMaturity2(ax1, maturity, title):
                 corradd += "*"
             if sealevels_corr[1] <= 0.001:
                 corradd += "*"
-        #import pdb; pdb.set_trace()
+
         if corradd != "":
             corradd = " ("+corradd+")"
         
@@ -1836,23 +1451,8 @@ def plotMaturity2(ax1, maturity, title):
              "sealevel_R": sealevels_corr[0],
              "sealevel_P": sealevels_corr[1]
              })
-        # multiple linear regression maturity = ngrip + sealevel
-        #import scipy.stats as ss
-        #dd = {'y': maturity[i][title][1], 'ngrip': ss.rankdata(ngrip["temp"].values), 'sealevels': ss.rankdata(sealevels_centered)}
-        #df_dd = pd.DataFrame(data=dd)
-        #lm = smf.ols(formula='y ~ ngrip + sealevels', data=df_dd).fit()
-        
-        #print(title, " ", label)
-        #print(lm.params)
-        #print(lm.pvalues)
-        
-        #ax1.vlines(grid_ages, min(maturity[i][title]), max(maturity[i][title]), color="lightgray")
+                
         ax1.plot(list(abunds.index), maturity[i][title], label=label+corradd, linestyle=linestyle, linewidth=linewidth, marker = None, color = colmap[i])
-        #if ngrip_correlated:
-        #    text = ax1.text(list(abunds.index)[-1]-1000, maturity[i][title][len(maturity[i][title]) -1 ], "*", color="red", size=20)
-        #if sealevel_correlated:
-        #    text = ax1.text(list(abunds.index)[-1]-5000, maturity[i][title][len(maturity[i][title]) -1 ], "*", color="blue", size=20)
-        
         ax1.set_ylabel(ytitle)
         i += 1
     
@@ -1899,20 +1499,20 @@ for com_i in [0,5,2]:
     df_maturity = pd.DataFrame(mod_maturity)
     df_maturity.index = ages
     df_maturity.index.name = "years_BP"
-    df_maturity.to_csv(workdir+"supplementary_information/maturity_module"+str(com_i+1)+".csv", sep=',', index=True, encoding='utf-8')
+    df_maturity.to_csv(suppdir+"maturity_module"+str(com_i+1)+".csv", sep=',', index=True, encoding='utf-8')
 
 # supplements: lcc maturity parameters
 df_maturity = pd.DataFrame(lcc_maturity)
 df_maturity.index = ages
 df_maturity.index.name = "years_BP"
-df_maturity.to_csv(workdir+"supplementary_information/maturity_module"+str(com_i+1)+".csv", sep=',', index=True, encoding='utf-8')
+df_maturity.to_csv(suppdir+"maturity_module"+str(com_i+1)+".csv", sep=',', index=True, encoding='utf-8')
 
 
 colmap= ["#BBBBBB", "#CC3311", "#EE7733", "#0077BB"]
 k = 1
 corrs = []
 for par in parameters:
-    maturity_corrs = plotMaturity2(axs[k], [lcc_maturity, mod_flows[0], mod_flows[1], mod_flows[2]], par)
+    maturity_corrs = plotMaturity(axs[k], [lcc_maturity, mod_flows[0], mod_flows[1], mod_flows[2]], par)
     corrs.append(maturity_corrs)
     k+=1
 
@@ -1921,228 +1521,7 @@ fig.tight_layout()
 fig.subplots_adjust(hspace=0.06)
 fig.savefig(workdir+'plots/maturity.png', format='png', dpi=1200)
 df_corrs = pd.DataFrame(corrs[0]).append(pd.DataFrame(corrs[1])).append(pd.DataFrame(corrs[2]))
-df_corrs.to_csv(workdir+"supplementary_information/maturity_corrs.csv", sep=',', index=True, encoding='utf-8')
+df_corrs.to_csv(suppdir+"maturity_corrs.csv", sep=',', index=True, encoding='utf-8')
 plt.show()
 
 #import pdb; pdb.set_trace()
-
-def getModuleProxies(module):
-    thisMod = list(module)
-    modAbunds = abunds[thisMod].sum(axis=1).values
-    
-    biogenic = biogenic_all["X..biogenic"].values
-    silic = biogenic_all["X..siliciclastics"].values
-    baal = xrf_all['ln.Ba.Al.'].values
-    thisngrip = ngrip["temp"].values
-    
-    ret = {}
-    r, p = scipy.stats.spearmanr(modAbunds, biogenic)
-    if p <= 0.05:
-        ret["biogenic"] = int(r*100)/100
-    r, p = scipy.stats.spearmanr(modAbunds, silic)
-    if p <= 0.05:
-        ret["silic"] = int(r*100)/100
-    r, p = scipy.stats.spearmanr(modAbunds, baal)
-    if p <= 0.05:
-        ret["ba/al"] = int(r*100)/100
-    r, p = scipy.stats.spearmanr(modAbunds, thisngrip)
-    if p <= 0.05:
-        ret["ngrip"] = int(r*100)/100
-        
-    ret["posneg"] = {"biogenic": {"pos": [], "neg": []}, "silic": {"pos": [], "neg": []}, "ba/al": {"pos": [], "neg": []}, "ngrip": {"pos": [], "neg": []}}
-    for tax in thisMod:
-        taxvals = abunds[thisMod[0]].values
-        # ngrip
-        r, p = scipy.stats.pearsonr((taxvals-np.mean(taxvals))/np.std(taxvals), thisngrip)
-        if p < 0.9 and abs(r)>0.2:
-            if r > 0:
-                ret["posneg"]["ngrip"]["pos"].append(tax)
-            else:
-                ret["posneg"]["ngrip"]["neg"].append(tax)
-        # biogenic
-        r, p = scipy.stats.pearsonr((taxvals-np.mean(taxvals))/np.std(taxvals), biogenic)
-        if p < 0.9 and abs(r)>0.2:
-            if r > 0:
-                ret["posneg"]["biogenic"]["pos"].append(tax)
-            else:
-                ret["posneg"]["biogenic"]["neg"].append(tax)
-        # silic
-        r, p = scipy.stats.pearsonr((taxvals-np.mean(taxvals))/np.std(taxvals), silic)
-        if p < 0.9 and abs(r)>0.2:
-            if r > 0:
-                ret["posneg"]["silic"]["pos"].append(tax)
-            else:
-                ret["posneg"]["silic"]["neg"].append(tax)
-        # baal
-        r, p = scipy.stats.pearsonr((taxvals-np.mean(taxvals))/np.std(taxvals), baal)
-        if p < 0.9 and abs(r)>0.2:
-            if r > 0:
-                ret["posneg"]["ba/al"]["pos"].append(tax)
-            else:
-                ret["posneg"]["ba/al"]["neg"].append(tax)
-        #import pdb; pdb.set_trace()
-    return ret
-
-def plotModule(comm, ps, ns):
-    
-    modProxies = getModuleProxies(module)
-    #ps = modProxies["posneg"]["biogenic"]["pos"]
-    #ns = modProxies["posneg"]["biogenic"]["neg"]
-    
-    x_offset = 300
-    y_offset = 1000
-    comms = [list(k) if len(list(k))>1 else [] for k in thisMods['comms']]
-    
-    plt.figure(figsize=[18,10], dpi = 300)
-    pos = nx.spring_layout(thisG.subgraph(comm), center = [0,0], seed = 6, scale=500) #4
-    #nx.draw_networkx_nodes(G_masked, pos)
-    #plt.show()
-
-    trColors = ["#1D8348", "#D4AC0D", "#A04000", "#884EA0"]
-    trHeights = 500
-    
-    i = 0
-    flipFlop = 1
-    colorBy = "ngrip"#"ngrip"
-    
-    plt.axhspan(-500, 500, facecolor='0.2', alpha=0.1)
-    plt.axhspan(1500, 2500, facecolor='0.2', alpha=0.1)
-
-    maxNodeSize = 300
-    commPadding = 100
-    prevStartX = 0
-    prevEndX = 0
-    allTRs = {"1": [], "2": [], "3": [], "4": []}
-    
-    # comm
-    colors = []
-    randCol = ["#"+''.join([random.choice('0123456789ABCDEF') for j in range(6)])][0]
-    trTaxa = {}
-    trLevels = {"1": [], "2": [], "3": [], "4": []}
-    trGrps = {"1": [], "2": [], "3": [], "4": []}
-    
-    # get trophic levels of community
-    for k in comm:
-        trGrp = df_families[df_families[0] == k][1].values[0]
-        trLevel = trophicLevels[trophicLevels[0] == trGrp][1].values[0]
-        trTaxa[k] = trLevel
-        trLevels[str(trLevel)].append(k)
-        trGrps[str(trLevel)].append(trGrp)
-        allTRs[str(trLevel)].append(k)
-    trCounts = Counter([trTaxa[k] for k in trTaxa.keys()])
-    maxCounts = trCounts.most_common()[0][1]
-    
-    node_sizes = dict(np.sum(abunds[comm])*maxNodeSize)
-    for key in node_sizes.keys():
-        node_sizes[key] = max(min(node_sizes[key], maxNodeSize), maxNodeSize/6)
-    moduleSizeSum = sum([node_sizes[k] for k in trLevels[str(trCounts.most_common()[0][0])]])
-    
-    commStartX = 0
-    commEndX = 1000
-    commWidth = 1000
-    prevStartX = 0
-    prevEndX = 1000
-    
-    for posKey in pos.keys():
-        pos[posKey][0] = pos[posKey][0] + 500
-    
-    for tr in trLevels.keys():
-        y_base =  y_offset*(int(tr)-1)
-        y_upper = y_base + trHeights - 100
-        y_lower = y_base - trHeights + 100
-        
-        taxaDict = {}
-        for tax in trLevels[tr]:
-            taxaDict[tax] = pos[tax][1]
-        taxaDict = {k: v for k, v in sorted(taxaDict.items(), key=lambda item: item[1])} # sorted
-        
-        try:
-            spaceBetween = abs(y_upper - y_lower) / (len(trLevels[tr])-1)
-        except:
-            spaceBetween = trHeights
-        for tax in taxaDict.keys():
-            pos[tax][1] = int(y_lower+(spaceBetween * list(taxaDict.keys()).index(tax)))
-        
-        #import pdb; pdb.set_trace()
-        
-    for k in comm:
-        
-        trLevel = trTaxa[k]
-        if colorBy == "module":
-            colors.append(randCol)  
-        if colorBy == "trophic":
-            colors.append(trColors[trLevel-1])  
-        if colorBy == "ngrip":
-            if k in ps:
-                colors.append(np.array([0.9, 0.0, 0.0, 0.85]))  
-            elif k in ns:
-                colors.append(np.array([0.0, 0.0, 0.7, 0.85]))
-            else:
-                colors.append(np.array([0.7, 0.7, 0.7, 0.7]))
-        if colorBy == "bio":
-            if k in ps:
-                colors.append(np.array([0.0, 0.39, 0.0, 0.7]))  
-            elif k in ns:
-                colors.append(np.array([0.58, 0.0, 0.83, 0.7]))
-            else:
-                colors.append(np.array([0.7, 0.7, 0.7, 0.7]))
-
-    nx.draw_networkx_nodes(thisG, pos, nodelist=comm, node_color=colors, node_size=list(node_sizes.values()))
-    
-    for node in comm:
-        labelSize = max((node_sizes[node] / maxNodeSize)*13, 7)
-        plt.text(pos[node][0], pos[node][1], node, fontsize=labelSize, ha='center', va='center')
-    i+=1
-    flipFlop *= -1
-    
-    edgecols = []
-    alphas = []
-    for edge in thisG.subgraph(comm).edges:
-        baseCol = np.array([0.7, 0.7, 0.7, 0.7])
-        if colorBy == "ngrip":
-            if edge[0] in ps or edge[1] in ps:
-                baseCol = np.array([0.9, 0.0, 0.0, 0.7])
-            if edge[0] in ns or edge[1] in ns:
-                baseCol = np.array([0.0, 0.0, 0.9, 0.7])
-            if (edge[0] in ps and edge[1] in ns) or (edge[0] in ns and edge[1] in ps):
-                baseCol = np.array([60/255, 0.0, 100/255, 0.7])
-        edgecols.append(baseCol)
-        alphas.append(multiplex_A[edge[0]][edge[1]])
-    
-    nx.draw_networkx_edges(thisG.subgraph(comm), pos, edge_color = edgecols, width=np.array(alphas)*2, alpha=np.array(alphas))
-    plt.xlim(0-150, commEndX+150)
-    plt.ylim(-500, 3500)
-    import time
-    obj = time.gmtime(0)
-    curr_time = round(time.time()*1000)
-    plt.savefig("C:/Users/vdinkel/Desktop/PhD/Presentations/networkVisialization/"+str(curr_time)+".png")
-    
-    assocCover = getModuleAssociationCoverage(module)
-    modTemp = getModuleTemp(module)
-    
-    
-    txtStartY = 3300
-    txtYOffset = 150
-    
-    plt.text(0, txtStartY, "Size: "+str(len(module)), bbox=dict(facecolor='white', alpha=0.5))
-    plt.text(0, txtStartY-txtYOffset, "MTL: "+str(getModuleMTL(module)[0]), bbox=dict(facecolor='white', alpha=0.5))
-    plt.text(0, txtStartY-txtYOffset*2, "MTL (layered): [1]: "+str(getModuleMTL(module)[1][0])+" | [2]: "+str(getModuleMTL(module)[1][1])+" | [3]: "+str(getModuleMTL(module)[1][2])+" | [4]: "+str(getModuleMTL(module)[1][3]), bbox=dict(facecolor='white', alpha=0.5))
-    plt.text(0, txtStartY-txtYOffset*3, "Association Coverage [Direct]: "+str(assocCover[1]["direct"]*100)+"% | [Indirect] "+str(assocCover[1]["indirect"]*100)+"%", bbox=dict(facecolor='white', alpha=0.5))
-    plt.text(0, txtStartY-txtYOffset*4, "Ngrip [Interglacial]: "+str(modTemp["pos"])+" | [Glacial] "+str(modTemp["neg"]), bbox=dict(facecolor='white', alpha=0.5))
-    
-    i = 5
-    if 'ba/al' in modProxies.keys():
-        plt.text(0, txtStartY-txtYOffset*i, "Ba/Al: "+str(modProxies["ba/al"]), bbox=dict(facecolor='white', alpha=0.5))
-        i += 1
-    if 'biogenic' in modProxies.keys():
-        plt.text(0, txtStartY-txtYOffset*i, "Biogenic: "+str(modProxies["biogenic"]), bbox=dict(facecolor='white', alpha=0.5))
-        i += 1
-    if 'silic' in modProxies.keys():
-        plt.text(0, txtStartY-txtYOffset*i, "Silic: "+str(modProxies["silic"]), bbox=dict(facecolor='white', alpha=0.5))
-        i += 1
-    if 'ngrip' in modProxies.keys():
-        plt.text(0, txtStartY-txtYOffset*i, "Ngrip: "+str(modProxies["ngrip"]), bbox=dict(facecolor='white', alpha=0.5))
-        i += 1
-    
-    plt.show()
-    plt.close()

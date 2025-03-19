@@ -1,0 +1,46 @@
+;1;2;3;4;5;6
+size;27;26;18;17;13;9
+functional_composition;"fish/nekton                    6
+demersal fish                  6
+crustaceans                    3
+sessile/sedimentary benthos    3
+mammals                        2
+phototrophic bacteria          2
+mobile benthos                 2
+chlorophytes                   1
+crustaceous zooplankton        1
+heterotrophic protists         1
+Name: 1, dtype: int64";"phototrophic protists     21
+heterotrophic protists     3
+mobile benthos             1
+brown algae                1
+Name: 1, dtype: int64";"phototrophic protists          14
+sessile/sedimentary benthos     1
+chlorophytes                    1
+demersal fish                   1
+mobile benthos                  1
+Name: 1, dtype: int64";"phototrophic bacteria          9
+red algae                      2
+chlorophytes                   1
+heterotrophic protists         1
+slime mold                     1
+crustaceans                    1
+demersal fish                  1
+sessile/sedimentary benthos    1
+Name: 1, dtype: int64";"phototrophic bacteria          3
+sessile/sedimentary benthos    3
+chlorophytes                   2
+phototrophic protists          2
+heterotrophic protists         1
+mammals                        1
+mobile benthos                 1
+Name: 1, dtype: int64";"mammals                        4
+chlorophytes                   1
+fish/nekton                    1
+phototrophic bacteria          1
+phototrophic protists          1
+sessile/sedimentary benthos    1
+Name: 1, dtype: int64"
+mean_trophic_level;2.66;1.19;1.27;1.41;1.69;2.66
+interglacial;11;3;0;1;1;5
+glacial;0;0;4;0;0;0

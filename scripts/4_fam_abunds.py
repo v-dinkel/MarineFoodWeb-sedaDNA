@@ -5,14 +5,22 @@ Created on Wed Sep  6 01:54:14 2023
 @author: vdinkel
 """
 
+
 import pandas as pd
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
-import networkx as nx
-import networkx.algorithms.community as nx_comm
-import scipy.stats
-from collections import Counter
+
+
+def read_config(filename):
+    #read the config file of the project
+    config = {}
+    with open(filename, 'r') as file:
+        for line in file:
+            if line.strip() and not line.startswith("#"):  # Ignore empty lines or comments
+                key, value = line.strip().split(":", 1)
+                config[key.strip()] = value.strip()
+    return config
 
 def loadFullKrakenReport(krakenFileDir, hasHeader):
     print("--loadFullKrakenReport")
@@ -372,11 +380,13 @@ trDict = {'1': ['Acanthocerataceae',
   'Phocoenidae',
   'Physeteridae']}
 
-workdir = 'C:/Users/vdinkel/Desktop/Manuscript/'
+workdir = read_config("../config.txt")["workdir"]
+suppdir = workdir+"supplementary_information/"
 abunds = workdir+"input/F_KL-77.csv"
 rel_abunds =  workdir+"output/F_KL-77_rel.csv"
-fam_troph = workdir+"supplementary_information/families_trophic_functions.csv"
+fam_troph = suppdir+"families_trophic_functions.csv"
 libs =  workdir+"input/KL-77_nt0.2.csv"
+
 
 df_krakenReport = loadFullKrakenReport(libs, hasHeader = True)
 df_abunds = loadFullKrakenReport(abunds, hasHeader = True)
@@ -403,6 +413,7 @@ for i in range(1,5):
     trOccs.append(tr_sum)
     trFams.append(len(tr_level_occs))
 # np.array(trOccs)/42
+
 
 
 # compare => abundances are the same!

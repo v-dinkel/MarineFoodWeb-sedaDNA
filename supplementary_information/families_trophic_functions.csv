@@ -1,0 +1,298 @@
+,family,taxonomic_group,trophic_level
+0,Bracteacoccaceae,chlorophytes,1
+1,Chlamydomonadaceae,chlorophytes,1
+2,Dunaliellaceae,chlorophytes,1
+3,Haematococcaceae,chlorophytes,1
+4,Hydrodictyaceae,chlorophytes,1
+5,Oedogoniaceae,chlorophytes,1
+6,Scenedesmaceae,chlorophytes,1
+7,Selenastraceae,chlorophytes,1
+8,Chloropicaceae,chlorophytes,1
+9,Bathycoccaceae,chlorophytes,1
+10,Crustomastigaceae,chlorophytes,1
+11,Mamiellaceae,chlorophytes,1
+12,Nephroselmidaceae,chlorophytes,1
+13,Prasinococcaceae,chlorophytes,1
+14,Picocystaceae,chlorophytes,1
+15,Pleurastraceae,chlorophytes,1
+16,Pycnococcaceae,chlorophytes,1
+17,Pyramimonadaceae,chlorophytes,1
+18,Chlorellaceae,chlorophytes,1
+19,Koliellaceae,chlorophytes,1
+20,Oocystaceae,chlorophytes,1
+21,Prasiolaceae,chlorophytes,1
+22,Trebouxiaceae,chlorophytes,1
+23,Bolbocoleonaceae,chlorophytes,1
+24,Bryopsidaceae,chlorophytes,1
+25,Chlorocystidaceae,chlorophytes,1
+26,Oltmannsiellopsidaceae,chlorophytes,1
+27,Calanidae,crustaceous zooplankton,2
+28,Eucalanidae,crustaceous zooplankton,2
+29,Metridinidae,crustaceous zooplankton,2
+30,Temoridae,crustaceous zooplankton,2
+31,Euphausiidae,crustaceous zooplankton,2
+32,Alepocephalidae,fish/nekton,3
+33,Apogonidae,fish/nekton,3
+34,Bathylagidae,fish/nekton,3
+35,Ceratiidae,fish/nekton,3
+36,Clupeidae,fish/nekton,3
+37,Cyclopteridae,fish/nekton,3
+38,Cyprinidae,fish/nekton,3
+39,Echeneidae,fish/nekton,3
+40,Gasterosteidae,fish/nekton,3
+41,Gobiidae,fish/nekton,3
+42,Gonostomatidae,fish/nekton,3
+43,Lateolabracidae,fish/nekton,3
+44,Microstomatidae,fish/nekton,3
+45,Myctophidae,fish/nekton,3
+46,Osmeridae,fish/nekton,3
+47,Salmonidae,fish/nekton,3
+48,Rhincodontidae,fish/nekton,3
+49,Petromyzontidae,fish/nekton,3
+50,Loliginidae,fish/nekton,3
+51,Oikopleuridae,gelatinous zooplankton,2
+52,Salpidae,gelatinous zooplankton,2
+53,Eirenidae,gelatinous zooplankton,2
+54,Cyaneidae,gelatinous zooplankton,2
+55,Pelagiidae,gelatinous zooplankton,2
+56,Ulmaridae,gelatinous zooplankton,2
+57,Apusomonadidae,heterotrophic protists,2
+58,Paulinellidae,heterotrophic protists,2
+59,Thaumatomastigidae,heterotrophic protists,2
+60,Fonticulaceae,heterotrophic protists,2
+61,Metopidae,heterotrophic protists,2
+62,Parameciidae,heterotrophic protists,2
+63,Tetrahymenidae,heterotrophic protists,2
+64,Euplotidae,heterotrophic protists,2
+65,Oxytrichidae,heterotrophic protists,2
+66,Chroomonadaceae,heterotrophic protists,2
+67,Geminigeraceae,heterotrophic protists,2
+68,Hemiselmidaceae,heterotrophic protists,2
+69,Diplonemidae,heterotrophic protists,2
+70,Euglenaceae,heterotrophic protists,2
+71,Phacaceae,heterotrophic protists,2
+72,Globorotaliidae,heterotrophic protists,2
+73,Rotaliidae,heterotrophic protists,2
+74,Sticholonchidae,heterotrophic protists,2
+75,Histionidae,heterotrophic protists,2
+76,Jakobidae,heterotrophic protists,2
+77,Hexamitidae,heterotrophic protists,2
+78,Perkinsidae,heterotrophic protists,2
+79,Vahlkampfiidae,heterotrophic protists,2
+80,Sphaerozoidae,heterotrophic protists,2
+81,Hypotrichomonadidae,heterotrophic protists,2
+82,Salpingoecidae,heterotrophic protists,2
+83,Collosphaeridae,heterotrophic protists,2
+84,Balaenopteridae,mammals,4
+85,Delphinidae,mammals,4
+86,Monodontidae,mammals,4
+87,Mustelidae,mammals,4
+88,Odobenidae,mammals,4
+89,Otariidae,mammals,4
+90,Phocidae,mammals,4
+91,Phocoenidae,mammals,4
+92,Physeteridae,mammals,4
+93,Chlorobiaceae,phototrophic bacteria,1
+94,Chloroflexaceae,phototrophic bacteria,1
+95,Roseiflexaceae,phototrophic bacteria,1
+96,Acaryochloridaceae,phototrophic bacteria,1
+97,Aphanizomenonaceae,phototrophic bacteria,1
+98,Aphanothecaceae,phototrophic bacteria,1
+99,Calotrichaceae,phototrophic bacteria,1
+100,Chamaesiphonaceae,phototrophic bacteria,1
+101,Chroococcaceae,phototrophic bacteria,1
+102,Chroococcidiopsidaceae,phototrophic bacteria,1
+103,Coleofasciculaceae,phototrophic bacteria,1
+104,Cyanothecaceae,phototrophic bacteria,1
+105,Dermocarpellaceae,phototrophic bacteria,1
+106,Gloeobacteraceae,phototrophic bacteria,1
+107,Gloeomargaritaceae,phototrophic bacteria,1
+108,Gomontiellaceae,phototrophic bacteria,1
+109,Hapalosiphonaceae,phototrophic bacteria,1
+110,Leptolyngbyaceae,phototrophic bacteria,1
+111,Merismopediaceae,phototrophic bacteria,1
+112,Microcoleaceae,phototrophic bacteria,1
+113,Nostocaceae,phototrophic bacteria,1
+114,Oscillatoriaceae,phototrophic bacteria,1
+115,Prochloraceae,phototrophic bacteria,1
+116,Prochlorotrichaceae,phototrophic bacteria,1
+117,Pseudanabaenaceae,phototrophic bacteria,1
+118,Rivulariaceae,phototrophic bacteria,1
+119,Scytonemataceae,phototrophic bacteria,1
+120,Synechococcaceae,phototrophic bacteria,1
+121,Hyellaceae,phototrophic bacteria,1
+122,Heliobacteriaceae,phototrophic bacteria,1
+123,Thraustochytriaceae,phototrophic protists,1
+124,Noelaerhabdaceae,phototrophic protists,1
+125,Amoebophryaceae,phototrophic protists,1
+126,Gonyaulacaceae,phototrophic protists,1
+127,Gymnodiniaceae,phototrophic protists,1
+128,Heterocapsaceae,phototrophic protists,1
+129,Kareniaceae,phototrophic protists,1
+130,Kryptoperidiniaceae,phototrophic protists,1
+131,Pfiesteriaceae,phototrophic protists,1
+132,Prorocentraceae,phototrophic protists,1
+133,Protoperidiniaceae,phototrophic protists,1
+134,Suessiaceae,phototrophic protists,1
+135,Syndiniaceae,phototrophic protists,1
+136,Acanthocerataceae,phototrophic protists,1
+137,Amphipleuraceae,phototrophic protists,1
+138,Anaulaceae,phototrophic protists,1
+139,Anomoeoneidaceae,phototrophic protists,1
+140,Attheyaceae,phototrophic protists,1
+141,Bacillariaceae,phototrophic protists,1
+142,Berkeleyaceae,phototrophic protists,1
+143,Biddulphiaceae,phototrophic protists,1
+144,Chaetocerotaceae,phototrophic protists,1
+145,Coscinodiscaceae,phototrophic protists,1
+146,Cymatosiraceae,phototrophic protists,1
+147,Entomoneidaceae,phototrophic protists,1
+148,Eunotiaceae,phototrophic protists,1
+149,Fragilariaceae,phototrophic protists,1
+150,Gomphonemataceae,phototrophic protists,1
+151,Hemiaulaceae,phototrophic protists,1
+152,Hemidiscaceae,phototrophic protists,1
+153,Leptocylindraceae,phototrophic protists,1
+154,Licmophoraceae,phototrophic protists,1
+155,Lithodesmiaceae,phototrophic protists,1
+156,Naviculaceae,phototrophic protists,1
+157,Phaeodactylaceae,phototrophic protists,1
+158,Plagiogrammaceae,phototrophic protists,1
+159,Rhizosoleniaceae,phototrophic protists,1
+160,Skeletonemataceae,phototrophic protists,1
+161,Stephanodiscaceae,phototrophic protists,1
+162,Thalassiosiraceae,phototrophic protists,1
+163,Toxariaceae,phototrophic protists,1
+164,Triceratiaceae,phototrophic protists,1
+165,Ulnariaceae,phototrophic protists,1
+166,Chromulinaceae,phototrophic protists,1
+167,Chrysolepidomonadaceae,phototrophic protists,1
+168,Staurosiraceae,phototrophic protists,1
+169,Cyanophoraceae,phototrophic protists,1
+170,Pavlovaceae,phototrophic protists,1
+171,Chrysochromulinaceae,phototrophic protists,1
+172,Phaeocystaceae,phototrophic protists,1
+173,Hymenomonadaceae,phototrophic protists,1
+174,Triparmaceae,phototrophic protists,1
+175,Pinguiochrysidaceae,phototrophic protists,1
+176,Eustigmataceae,phototrophic protists,1
+177,Monodopsidaceae,phototrophic protists,1
+178,Chattonellaceae,phototrophic protists,1
+179,Mallomonadaceae,phototrophic protists,1
+180,Cyanidiaceae,red algae,1
+181,Acytosteliaceae,slime mold,2
+182,Cavenderiaceae,slime mold,2
+183,Characeae,streptophytes,1
+184,Klebsormidiaceae,streptophytes,1
+185,Closteriaceae,streptophytes,1
+186,Desmidiaceae,streptophytes,1
+187,Mesotaeniaceae,streptophytes,1
+188,Zygnemataceae,streptophytes,1
+189,Cirratulidae,sessile/sedimentary benthos,2
+190,Polynoidae,mobile benthos,3
+191,Terebellidae,sessile/sedimentary benthos,2
+192,Daphniidae,crustaceans,3
+193,Aegisthidae,crustaceans,3
+194,Harpacticidae,crustaceans,3
+195,Tetragonicipitidae,crustaceans,3
+196,Gecarcinidae,crustaceans,3
+197,Hyalellidae,crustaceans,3
+198,Lysianassidae,crustaceans,3
+199,Parastacidae,crustaceans,3
+200,Penaeidae,crustaceans,3
+201,Portunidae,crustaceans,3
+202,Limulidae,crustaceans,3
+203,Acinetosporaceae,brown algae,1
+204,Lingulidae,sessile/sedimentary benthos,2
+205,Gromiidae,heterotrophic protists,2
+206,Codiaceae,chlorophytes,1
+207,Derbesiaceae,chlorophytes,1
+208,Halimedaceae,chlorophytes,1
+209,Ostreobiaceae,chlorophytes,1
+210,Polyphysaceae,chlorophytes,1
+211,Ulvaceae,chlorophytes,1
+212,Acipenseridae,demersal fish,3
+213,Ammodytidae,demersal fish,3
+214,Anarhichadidae,demersal fish,3
+215,Anoplopomatidae,demersal fish,3
+216,Batrachoididae,demersal fish,3
+217,Blenniidae,demersal fish,3
+218,Cottidae,demersal fish,3
+219,Cynoglossidae,demersal fish,3
+220,Gadidae,demersal fish,3
+221,Liparidae,demersal fish,3
+222,Oreosomatidae,demersal fish,3
+223,Paralichthyidae,demersal fish,3
+224,Pleuronectidae,demersal fish,3
+225,Sebastidae,demersal fish,3
+226,Sparidae,demersal fish,3
+227,Syngnathidae,demersal fish,3
+228,Zoarcidae,demersal fish,3
+229,Cionidae,sessile/sedimentary benthos,2
+230,Pyuridae,sessile/sedimentary benthos,2
+231,Styelidae,sessile/sedimentary benthos,2
+232,Rajidae,demersal fish,3
+233,Myxinidae,demersal fish,3
+234,Acroporidae,sessile/sedimentary benthos,2
+235,Actiniidae,sessile/sedimentary benthos,2
+236,Aiptasiidae,sessile/sedimentary benthos,2
+237,Edwardsiidae,sessile/sedimentary benthos,2
+238,Merulinidae,sessile/sedimentary benthos,2
+239,Nephtheidae,sessile/sedimentary benthos,2
+240,Pocilloporidae,sessile/sedimentary benthos,2
+241,Campanulariidae,sessile/sedimentary benthos,2
+242,Hydridae,sessile/sedimentary benthos,2
+243,Saccosporidae,sessile/sedimentary benthos,2
+244,Acanthasteridae,mobile benthos,3
+245,Asteriidae,mobile benthos,3
+246,Strongylocentrotidae,mobile benthos,3
+247,Arcidae,sessile/sedimentary benthos,2
+248,Mytilidae,sessile/sedimentary benthos,2
+249,Ostreidae,sessile/sedimentary benthos,2
+250,Pectinidae,sessile/sedimentary benthos,2
+251,Pteriidae,sessile/sedimentary benthos,2
+252,Octopodidae,mobile benthos,3
+253,Aplysiidae,mobile benthos,3
+254,Haliotidae,mobile benthos,3
+255,Lottiidae,mobile benthos,3
+256,Provannidae,mobile benthos,3
+257,Oxystominidae,mobile benthos,3
+258,Agaraceae,brown algae,1
+259,Alariaceae,brown algae,1
+260,Dictyotaceae,brown algae,1
+261,Ectocarpaceae,brown algae,1
+262,Fucaceae,brown algae,1
+263,Laminariaceae,brown algae,1
+264,Sargassaceae,brown algae,1
+265,Scytosiphonaceae,brown algae,1
+266,Dugesiidae,mobile benthos,3
+267,Niphatidae,sessile/sedimentary benthos,2
+268,Priapulidae,sessile/sedimentary benthos,2
+269,Bangiaceae,red algae,1
+270,Porphyridiaceae,red algae,1
+271,Acrochaetiaceae,red algae,1
+272,Areschougiaceae,red algae,1
+273,Batrachospermaceae,red algae,1
+274,Bonnemaisoniaceae,red algae,1
+275,Ceramiaceae,red algae,1
+276,Corallinaceae,red algae,1
+277,Dasyaceae,red algae,1
+278,Delesseriaceae,red algae,1
+279,Gelidiaceae,red algae,1
+280,Gigartinaceae,red algae,1
+281,Gracilariaceae,red algae,1
+282,Halymeniaceae,red algae,1
+283,Hapalidiaceae,red algae,1
+284,Hildenbrandiaceae,red algae,1
+285,Hypneaceae,red algae,1
+286,Kallymeniaceae,red algae,1
+287,Liagoraceae,red algae,1
+288,Palmariaceae,red algae,1
+289,Phyllophoraceae,red algae,1
+290,Rhodogorgonaceae,red algae,1
+291,Rhodomelaceae,red algae,1
+292,Rhodymeniaceae,red algae,1
+293,Solieriaceae,red algae,1
+294,Spyridiaceae,red algae,1
+295,Wrangeliaceae,red algae,1
+296,Zosteraceae,streptophytes,1
