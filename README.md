@@ -47,5 +47,10 @@
     - compares the modularity and clustering (positive/negative ngrip linkage) of the consensus network with spiec easi network of similiar size. plo
     - computes energy flow metrics such as relative ascendency of the LCC and three modules. Plots them against NGRIP and relative sea level.
     - outputs are the consensus network as .csv adjacency matrix and a gephi file. Other generated outputs are in /plots and /supplementary_information folders
-    
-- 
+
+- plot families stratigram
+
+- correlate ip25 and ngrip from cores kl12 and kl77
+    - open 5_proxie_corr.py and run it
+    - loads and compares IP25 values with ngrip
+    - prints correlation coefficients and saves the plot to /plots
