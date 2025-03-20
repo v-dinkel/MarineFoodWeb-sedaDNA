@@ -16,7 +16,7 @@
 - **Grant_age_RSL_col_EF.txt** | Relative sea level reconstruction data.
 - **ngrip.csv** | NGRIP temperature proxy data.
 - **trophic_levels.csv** | Mapping of 16 taxonomic groups to 4 trophic levels.
-- **db_allresults_final.csv** | GloBI interaction results for the 297 marine families.
+- **db_allresults_final.csv** | GloBI interaction results (queried 14.11.2024) for the 297 marine families.
 - **IP25_77KL.csv** | IP25 values for the 77KL sediment core.
 - **interpol_IP25_SSTs_stack_average_praetorius_NAreplaced.txt** | IP25 values for the 12KL sediment core.
 
