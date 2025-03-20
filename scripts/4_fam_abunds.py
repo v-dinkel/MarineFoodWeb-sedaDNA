@@ -39,7 +39,7 @@ suppdir = workdir+"supplementary_information/"
 abunds = workdir+"input/F_KL-77.csv"
 rel_abunds =  workdir+"output/F_KL-77_rel.csv"
 fam_troph = suppdir+"families_trophic_functions.csv"
-libs =  workdir+"input/KL-77_nt0.2.csv"
+#libs =  workdir+"input/KL-77_nt0.2.csv"
 
 # get positive / negative ngrip correlations
 scorrs = pd.read_table(outdir+"KL-77_temp_spearman_corrs.csv", sep=";", header=1)
