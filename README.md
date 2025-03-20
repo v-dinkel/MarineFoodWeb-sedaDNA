@@ -20,6 +20,10 @@
 ## Setup Workflow
 - Setup your Python and R environment as described in this project: https://github.com/v-dinkel/FoodWeb_gLV
     - 1. Setting Up the Python Environment (skip install Snakemake)
+        - install scikit-learn (1.6.1) in the conda environment:
+            - open terminal and activate the environment
+            - conda activate FoodWeb_gLV
+            - conda install scikit-learn
         - Open the config.txt and change workdir to match your folder path
     - 2. Setting Up the R Environment. The corresponding R file in this project is 2_inferNetworks.R
         - Open the 2_inferNetworks.R and change workdir to match your folder path
@@ -49,6 +53,8 @@
     - outputs are the consensus network as .csv adjacency matrix and a gephi file. Other generated outputs are in /plots and /supplementary_information folders
 
 - plot families stratigram
+    - open and run 4_fam_abunds.py
+    - it saves the stratigram into /plots
 
 - correlate ip25 and ngrip from cores kl12 and kl77
     - open 5_proxie_corr.py and run it
@@ -63,3 +69,7 @@
     - computes randomized null model of randomly occuring interactions
     - compares with spiec easi results
     - saves interaction graph in outputs and null model benchmark to plots
+    
+- get flow metrics of the module ig1
+    - open 7_module_maturity_plots.py and run it
+    - 

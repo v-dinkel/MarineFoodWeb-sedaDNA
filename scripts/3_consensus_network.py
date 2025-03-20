@@ -12,8 +12,8 @@ import matplotlib.pyplot as plt
 import networkx as nx
 import networkx.algorithms.community as nx_comm
 import scipy.stats
-from collections import Counter
 import statsmodels.formula.api as smf
+import json
 
 def read_config(filename):
     #read the config file of the project
@@ -382,15 +382,6 @@ def AMI_compartments(G, ascDicts, vabunds):
 
     A = T12 + T13 + T14 + T23 + T24 + T34
     H = -1*(H12 + H13 + H14 + H23 + H24 + H34)
-    #print("T12: ", T12)
-    #print("T13: ", T13)
-    #print("T14: ", T14)
-    #print("T23: ", T23)
-    #print("T24: ", T24)
-    #print("T34: ", T34)
-    #print ("AMI: ", A)
-    #print ("Ascendancy: ", A*T)
-    #print ("H: ", H)
     
     return A, A*T, T, ascEdges, H, {"1_to_2": T12, "1_to_3": T13, "1_to_4": T14, "2_to_3": T23, "2_to_4": T24, "3_to_4": T34}
 
@@ -423,10 +414,6 @@ def getTrLeaveNum(G, j):
     return lowerNum, higherNum
 
 def getEdgeAMI(i,j, G, T, vabunds):
-    #if trDict2[i] > trDict2[j]:
-    #    h = i
-    #    i = j
-    #    j = h
     
     Tij = G[edge[0]][edge[1]]["weight"]
     Ti_out = np.sum([G.get_edge_data(*i_edge)["weight"] for i_edge in G.edges(edge[0])])
@@ -617,6 +604,11 @@ thisMods = modcorrs(thisNet, tpos, tneg, 0.0)
 # get the dictionaries to look up trophic levels of families
 trDict = {"1": [], "2": [], "3": [], "4": []} # dictionary with trophic level as key to get all families of a trophic level
 trDict2 = {} # dictionary with taxon as key and value = trophic level
+
+# save the file for future plots
+with open(outputdir+"troph_level_dict.json", 'w') as json_file:
+    json.dump(trDict, json_file, indent=4)
+
 nodesList = list(thisG.nodes)
 for k in nodesList:
     try:
@@ -627,7 +619,7 @@ for k in nodesList:
     except:
         import pdb; pdb.set_trace()
 
-
+import pdb; pdb.set_trace()
 np.warnings.filterwarnings('ignore')
 
 # get single network coverage statistics of the CN network
