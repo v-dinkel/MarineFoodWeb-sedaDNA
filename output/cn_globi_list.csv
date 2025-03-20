@@ -1,0 +1,134 @@
+,fam1,fam2,source_taxon_name,target_taxon_name,study_title,fam1_troph,fam2_troph
+0,Blenniidae,Apogonidae,Cheilodipterus macrodon,Istiblennius,FB_REF:275,3,3
+1,Penaeidae,Apogonidae,Apogon pseudomaculatus,Penaeidae,Nelson 1994,3,3
+2,Penaeidae,Apogonidae,Ostorhinchus doederleini,Penaeidae,FB_REF:54366,3,3
+3,Penaeidae,Apogonidae,Ostorhinchus cyanosoma,Penaeidae,FB_REF:54366,3,3
+4,Penaeidae,Apogonidae,Nectamia fusca,Penaeidae,FB_REF:54366,3,3
+5,Penaeidae,Apogonidae,Cheilodipterus artus,Penaeidae,FB_REF:54366,3,3
+6,Penaeidae,Apogonidae,Pristiapogon exostigma,Penaeidae,FB_REF:54366,3,3
+7,Penaeidae,Apogonidae,Cheilodipterus quinquelineatus,Penaeidae,FB_REF:54366,3,3
+8,Penaeidae,Apogonidae,Taeniamia leai,Penaeidae,FB_REF:54366,3,3
+9,Pectinidae,Asteriidae,Asterias forbesi,Argopecten irradians,"Brose, U. (2018). GlobAL daTabasE of traits and food Web Architecture (GATEWAy) version 1.0 [Data set]. German Centre for Integrative Biodiversity Research (iDiv) Halle-Jena-Leipzig. https://doi.org/10.25829/IDIV.283-3-756. Accessed at <https://github.com/globalbioticinteractions/brose-gateway/archive/c89ac44d03decc76d59908d74e2a5ff6d3cd618d.zip> on 30 Oct 2024.Kroll, unpublished",2,3
+10,Pectinidae,Asteriidae,Astrostole scabra,Pecten novaezelandiae,SLB_REF:1244,2,3
+11,Pectinidae,Asteriidae,Sclerasterias mollis,Pecten novaezelandiae,SLB_REF:1244,2,3
+12,Pectinidae,Asteriidae,Orthasterias koehleri,Pectinidae,globalbioticinteractions/dunne2016SanakNearshore,2,3
+13,Pectinidae,Asteriidae,Pycnopodia helianthoides,Pectinidae,globalbioticinteractions/dunne2016SanakNearshore,2,3
+14,Pectinidae,Asteriidae,Asterias,Pectinidae,globalbioticinteractions/dunne2016SanakNearshore,2,3
+15,Pectinidae,Asteriidae,Leptasterias,Pectinidae,globalbioticinteractions/dunne2016SanakNearshore,2,3
+16,Pectinidae,Asteriidae,Asterias rubens,Pecten maximus,"Brose, U. (2018). GlobAL daTabasE of traits and food Web Architecture (GATEWAy) version 1.0 [Data set]. German Centre for Integrative Biodiversity Research (iDiv) Halle-Jena-Leipzig. https://doi.org/10.25829/IDIV.283-3-756. Accessed at <https://github.com/globalbioticinteractions/brose-gateway/archive/c89ac44d03decc76d59908d74e2a5ff6d3cd618d.zip> on 30 Oct 2024.Jacob et al. (2015)",2,3
+17,Pectinidae,Asteriidae,Orthasterias koehleri,Crassadoma gigantea,"BYRNES-Nakashima, R. 1974. Asteroid ...",2,3
+18,Pectinidae,Asteriidae,Orthasterias koehleri,Crassadoma gigantea,millerse/Seaweeddoi:10.1111/j.1365-2486.2011.02409.x,2,3
+19,Pectinidae,Asteriidae,Pisaster brevispinus,Crassadoma gigantea,"BYRNES-Van Veldhuizen, H. D. 1978. F...",2,3
+20,Pectinidae,Asteriidae,Pisaster brevispinus,Crassadoma gigantea,millerse/Seaweeddoi:10.1111/j.1365-2486.2011.02409.x,2,3
+21,Pectinidae,Asteriidae,Notasterias armata,Adamussium colbecki,"BROSE-Jacob, Brey & Min...",2,3
+22,Pectinidae,Asteriidae,Evasterias troschelii,Pectinidae,globalbioticinteractions/dunne2016SanakNearshore,2,3
+23,Pectinidae,Asteriidae,Marthasterias glacialis,Pecten maximus,"Brose, U. (2018). GlobAL daTabasE of traits and food Web Architecture (GATEWAy) version 1.0 [Data set]. German Centre for Integrative Biodiversity Research (iDiv) Halle-Jena-Leipzig. https://doi.org/10.25829/IDIV.283-3-756. Accessed at <https://github.com/globalbioticinteractions/brose-gateway/archive/c89ac44d03decc76d59908d74e2a5ff6d3cd618d.zip> on 30 Oct 2024.Jacob et al. (2015)",2,3
+24,Bacillariaceae,Cionidae,Cliona,Nitzschia closterium,Roopnarine et al 2013,1,2
+25,Bacillariaceae,Cionidae,Cliona,Bacillaria,Roopnarine et al 2013,1,2
+26,Bacillariaceae,Cionidae,Cliona,Nitzschia,Roopnarine et al 2013,1,2
+27,Clupeidae,Balaenopteridae,Balaenoptera borealis,Clupea pallasii,10.5061/dryad.nv5d2/5dc9ebc4499164b5bb041bda40565288,3,4
+28,Clupeidae,Balaenopteridae,Balaenoptera borealis,Sardinops sagax,10.5061/dryad.nv5d2/97835c44bfec331325e476a07cec44c5,3,4
+29,Clupeidae,Balaenopteridae,Balaenoptera physalus,Sardinops sagax,10.5061/dryad.nv5d2/97835c44bfec331325e476a07cec44c5,3,4
+30,Clupeidae,Balaenopteridae,Balaenoptera physalus,Clupea harengus,"PLANQUE-Aguilar, A. 2009....41669a5925d2a33fbd601444dea2d7d9",3,4
+31,Clupeidae,Balaenopteridae,Balaenoptera physalus,Clupea harengus,"PLANQUE-N�ttestad, L., an...b36bcdf0524ea69eccd4024c91d4cc50",3,4
+32,Clupeidae,Balaenopteridae,Balaenoptera acutorostrata,Clupeinae,"Lintulaakso, K., Tatti, N. and Žliobaitė, I., 2023. Quantifying mammalian diets. Mammalian Biology, 103(1), pp.53-67. https://doi.org/10.1007/s42991-022-00323-6. Accessed at <https://github.com/mammalbase/database/archive/2ecba037a73fb67bc3f3e4b9edf9eabeb3e86889.zip> on 30 Oct 2024.",3,4
+33,Clupeidae,Balaenopteridae,Balaenoptera edeni,Clupeinae,"Lintulaakso, K., Tatti, N. and Žliobaitė, I., 2023. Quantifying mammalian diets. Mammalian Biology, 103(1), pp.53-67. https://doi.org/10.1007/s42991-022-00323-6. Accessed at <https://github.com/mammalbase/database/archive/2ecba037a73fb67bc3f3e4b9edf9eabeb3e86889.zip> on 30 Oct 2024.",3,4
+34,Clupeidae,Balaenopteridae,Balaenoptera edeni,Clupeidae,"Lintulaakso, K., Tatti, N. and Žliobaitė, I., 2023. Quantifying mammalian diets. Mammalian Biology, 103(1), pp.53-67. https://doi.org/10.1007/s42991-022-00323-6. Accessed at <https://github.com/mammalbase/database/archive/2ecba037a73fb67bc3f3e4b9edf9eabeb3e86889.zip> on 30 Oct 2024.",3,4
+35,Clupeidae,Balaenopteridae,Balaenoptera physalus,Clupeinae,"Lintulaakso, K., Tatti, N. and Žliobaitė, I., 2023. Quantifying mammalian diets. Mammalian Biology, 103(1), pp.53-67. https://doi.org/10.1007/s42991-022-00323-6. Accessed at <https://github.com/mammalbase/database/archive/2ecba037a73fb67bc3f3e4b9edf9eabeb3e86889.zip> on 30 Oct 2024.",3,4
+36,Clupeidae,Balaenopteridae,Balaenoptera bonaerensis,Clupeinae,"Lintulaakso, K., Tatti, N. and Žliobaitė, I., 2023. Quantifying mammalian diets. Mammalian Biology, 103(1), pp.53-67. https://doi.org/10.1007/s42991-022-00323-6. Accessed at <https://github.com/mammalbase/database/archive/2ecba037a73fb67bc3f3e4b9edf9eabeb3e86889.zip> on 30 Oct 2024.",3,4
+37,Clupeidae,Balaenopteridae,Balaenoptera edeni,Sardinops sagax,SLB_REF:39882,3,4
+38,Clupeidae,Balaenopteridae,Balaenoptera edeni,Sardinella brasiliensis,SLB_REF:101742,3,4
+39,Clupeidae,Balaenopteridae,Balaenoptera acutorostrata,Sardinops sagax,SLB_REF:39880,3,4
+40,Clupeidae,Balaenopteridae,Balaenoptera acutorostrata,Clupea pallasii,SLB_REF:39882,3,4
+41,Clupeidae,Balaenopteridae,Balaenoptera acutorostrata,Clupeidae,SLB_REF:96826,3,4
+42,Clupeidae,Balaenopteridae,Balaenoptera acutorostrata,Clupea harengus,SLB_REF:96826,3,4
+43,Clupeidae,Balaenopteridae,Balaenoptera acutorostrata,Sprattus sprattus,SLB_REF:96826,3,4
+44,Clupeidae,Balaenopteridae,Megaptera novaeangliae,Sardinella,SLB_REF:91967,3,4
+45,Clupeidae,Balaenopteridae,Megaptera novaeangliae,Sardinops,SLB_REF:91967,3,4
+46,Clupeidae,Balaenopteridae,Megaptera novaeangliae,Clupea pallasii,SLB_REF:91969,3,4
+47,Clupeidae,Balaenopteridae,Megaptera novaeangliae,Clupea,SLB_REF:91966,3,4
+48,Clupeidae,Balaenopteridae,Balaenoptera borealis,Clupea pallasii,SLB_REF:96832,3,4
+49,Clupeidae,Balaenopteridae,Balaenoptera borealis,Sardinops sagax,SLB_REF:84972,3,4
+50,Clupeidae,Balaenopteridae,Eschrichtius robustus,Clupea pallasii,globalbioticinteractions/dunne2016SanakNearshore,3,4
+51,Clupeidae,Balaenopteridae,Balaenoptera physalus,Clupea harengus,SLB_REF:91950,3,4
+52,Clupeidae,Balaenopteridae,Megaptera novaeangliae,Sardinops sagax,10.5061/dryad.nv5d2/97835c44bfec331325e476a07cec44c5,3,4
+53,Clupeidae,Balaenopteridae,Megaptera novaeangliae,Clupea pallasii,10.5061/dryad.nv5d2/97835c44bfec331325e476a07cec44c5,3,4
+54,Clupeidae,Balaenopteridae,Megaptera novaeangliae,Clupea pallasii,globalbioticinteractions/dunne2016SanakNearshore,3,4
+55,Clupeidae,Balaenopteridae,Megaptera novaeangliae,Clupea harengus,"PLANQUE-Clapham, P. J. 20...271c8d25c0497a877545778340fe21d7",3,4
+56,Clupeidae,Balaenopteridae,Megaptera novaeangliae,Clupea harengus,"PLANQUE-N�ttestad, L., an...b36bcdf0524ea69eccd4024c91d4cc50",3,4
+57,Clupeidae,Balaenopteridae,Balaenoptera acutorostrata,Clupea harengus,"PLANQUE-Haug, T., Gj�s�te...c410eaf30854d1da8f5448ae2985cfc1",3,4
+58,Clupeidae,Balaenopteridae,Balaenoptera acutorostrata,Clupea harengus,"diatomsRcool/greenland_interactionsJensen & Christensen (Eds) 2003. The Biodiversity of Greenland - A Country Study. Technical Report 55.  Pinngortitaleriffik, Grønlands Naturinstitut. 165 pp",3,4
+59,Clupeidae,Balaenopteridae,Balaenoptera acutorostrata,Clupea harengus,"millerse/Jstor-CollectonLydersen, Christian, Jan Marcin Weslawski, and Nils Are Oritsland. Stomach Content Analysis of Minke Whales Balaenoptera Acutorostrata from the Lofoten and Vesteralen Areas, Norway. Ecography 14, no. 3, 219-22.",3,4
+60,Clupeidae,Balaenopteridae,Megaptera novaeangliae,Clupea harengus,"diatomsRcool/greenland_interactionsJensen & Christensen (Eds) 2003. The Biodiversity of Greenland - A Country Study. Technical Report 55.  Pinngortitaleriffik, Grønlands Naturinstitut. 165 pp",3,4
+61,Clupeidae,Balaenopteridae,Megaptera novaeangliae,Clupeiformes,"http://iNaturalist.org is a place where you can record what you see in nature, meet other nature lovers, and learn about the natural world. Accessed at <https://www.inaturalist.org/observations/globi-observations-resource-relationships-dwca.zip> on 30 Oct 2024.",3,4
+62,Clupeidae,Balaenopteridae,Megaptera novaeangliae,Anchoa,"http://iNaturalist.org is a place where you can record what you see in nature, meet other nature lovers, and learn about the natural world. Accessed at <https://www.inaturalist.org/observations/globi-observations-resource-relationships-dwca.zip> on 30 Oct 2024.",3,4
+63,Balaenopteridae,Delphinidae,Orcinus orca,Balaenoptera acutorostrata,"BROSE-Jacob, Brey & Min...",4,4
+64,Balaenopteridae,Delphinidae,Orcinus orca,Balaenoptera acutorostrata,"Brose, U. (2018). GlobAL daTabasE of traits and food Web Architecture (GATEWAy) version 1.0 [Data set]. German Centre for Integrative Biodiversity Research (iDiv) Halle-Jena-Leipzig. https://doi.org/10.25829/IDIV.283-3-756. Accessed at <https://github.com/globalbioticinteractions/brose-gateway/archive/c89ac44d03decc76d59908d74e2a5ff6d3cd618d.zip> on 30 Oct 2024.Jacob et al. (2011)",4,4
+65,Balaenopteridae,Delphinidae,Orcinus orca,Balaenoptera,"Lintulaakso, K., Tatti, N. and Žliobaitė, I., 2023. Quantifying mammalian diets. Mammalian Biology, 103(1), pp.53-67. https://doi.org/10.1007/s42991-022-00323-6. Accessed at <https://github.com/mammalbase/database/archive/2ecba037a73fb67bc3f3e4b9edf9eabeb3e86889.zip> on 30 Oct 2024.",4,4
+66,Balaenopteridae,Delphinidae,Orcinus orca,Eschrichtius robustus,globalbioticinteractions/dunne2016SanakNearshore,4,4
+67,Balaenopteridae,Delphinidae,Orcinus orca,Megaptera novaeangliae,globalbioticinteractions/dunne2016SanakNearshore,4,4
+68,Balaenopteridae,Delphinidae,Orcinus orca,Balaenoptera,globalbioticinteractions/dunne2016SanakNearshore,4,4
+69,Balaenopteridae,Delphinidae,Orcinus orca,Megaptera novaeangliae,"diatomsRcool/greenland_interactionsJensen & Christensen (Eds) 2003. The Biodiversity of Greenland - A Country Study. Technical Report 55.  Pinngortitaleriffik, Grønlands Naturinstitut. 165 pp",4,4
+70,Batrachoididae,Sparidae,Pagrus pagrus,Porichthys,Nelson 1988,3,3
+71,Sparidae,Batrachoididae,Opsanus,Cantharus,Moseley 1966,3,3
+72,Blenniidae,Mustelidae,Lutra lutra,Blenniidae,SLB_REF:8723,3,4
+73,Clupeidae,Phocoenidae,Phocoenoides dalli,Clupea pallasii,10.5061/dryad.nv5d2/f81f66c4878e21db426d03e0566c6120,3,4
+74,Clupeidae,Phocoenidae,Phocoenoides dalli,Clupeinae,"Lintulaakso, K., Tatti, N. and Žliobaitė, I., 2023. Quantifying mammalian diets. Mammalian Biology, 103(1), pp.53-67. https://doi.org/10.1007/s42991-022-00323-6. Accessed at <https://github.com/mammalbase/database/archive/2ecba037a73fb67bc3f3e4b9edf9eabeb3e86889.zip> on 30 Oct 2024.",3,4
+75,Clupeidae,Phocoenidae,Phocoena phocoena,Clupeinae,"Lintulaakso, K., Tatti, N. and Žliobaitė, I., 2023. Quantifying mammalian diets. Mammalian Biology, 103(1), pp.53-67. https://doi.org/10.1007/s42991-022-00323-6. Accessed at <https://github.com/mammalbase/database/archive/2ecba037a73fb67bc3f3e4b9edf9eabeb3e86889.zip> on 30 Oct 2024.",3,4
+76,Clupeidae,Phocoenidae,Phocoenoides dalli,Clupea pallasii,globalbioticinteractions/dunne2016SanakNearshore,3,4
+77,Clupeidae,Phocoenidae,Phocoenoides dalli,Alosa sapidissima,globalbioticinteractions/dunne2016SanakNearshore,3,4
+78,Clupeidae,Phocoenidae,Phocoenoides dalli,Sardinops sagax,SLB_REF:8823,3,4
+79,Clupeidae,Phocoenidae,Phocoena phocoena,Sardina pilchardus,SLB_REF:85012,3,4
+80,Clupeidae,Phocoenidae,Phocoena phocoena,Clupea harengus,SLB_REF:85760,3,4
+81,Clupeidae,Phocoenidae,Phocoena phocoena,Sprattus sprattus,SLB_REF:2497,3,4
+82,Clupeidae,Phocoenidae,Phocoena phocoena,Clupea harengus harengus,SLB_REF:2497,3,4
+83,Clupeidae,Phocoenidae,Phocoena phocoena,Clupea harengus,SLB_REF:2497,3,4
+84,Clupeidae,Phocoenidae,Neophocaena phocaenoides,Sardinella,SLB_REF:81040,3,4
+85,Clupeidae,Phocoenidae,Neophocaena phocaenoides,Clupanodon,SLB_REF:81040,3,4
+86,Clupeidae,Phocoenidae,Neophocaena phocaenoides,Clupeidae,SLB_REF:81021,3,4
+87,Clupeidae,Phocoenidae,Phocoena phocoena,Clupea pallasii,10.5061/dryad.nv5d2/f81f66c4878e21db426d03e0566c6120,3,4
+88,Clupeidae,Phocoenidae,Phocoena phocoena,Clupea pallasii,10.5061/dryad.nv5d2/a250cbffdb0b44011713c1a950c10db7,3,4
+89,Clupeidae,Phocoenidae,Phocoena phocoena,Sardinops sagax,10.5061/dryad.nv5d2/3e01bd20418364d02d05c3d894020d16,3,4
+90,Clupeidae,Phocoenidae,Phocoena phocoena,Clupea pallasii,10.5061/dryad.nv5d2/3e01bd20418364d02d05c3d894020d16,3,4
+91,Clupeidae,Phocoenidae,Phocoena phocoena,Clupea pallasii,10.5061/dryad.nv5d2/46297b6cf7cedc6ef2e2660e538f13d6,3,4
+92,Clupeidae,Phocoenidae,Phocoena phocoena,Clupea harengus,"PLANQUE-Aarefjord, H., Bj...4b47c8b966d6a5c89478822a68ea6793",3,4
+93,Clupeidae,Phocoenidae,Phocoena phocoena,Clupea harengus,"PLANQUE-Santos M. B., Pie...81b16bc9990570998db02e9240b594d0",3,4
+94,Clupeidae,Phocoenidae,Phocoena,Clupeinae,"Lintulaakso, K., Tatti, N. and Žliobaitė, I., 2023. Quantifying mammalian diets. Mammalian Biology, 103(1), pp.53-67. https://doi.org/10.1007/s42991-022-00323-6. Accessed at <https://github.com/mammalbase/database/archive/2ecba037a73fb67bc3f3e4b9edf9eabeb3e86889.zip> on 30 Oct 2024.",3,4
+95,Clupeidae,Physeteridae,Physeter macrocephalus,Sardinops sagax,10.5061/dryad.nv5d2/97835c44bfec331325e476a07cec44c5,3,4
+96,Synechococcaceae,Clupeidae,Brevoortia patronus,Dactylococcopsis,Matlock and Garcia 1983,1,3
+97,Coscinodiscaceae,Naviculaceae,Ephemera,Coscinodiscus,mangal:ref:id:135,1,1
+98,Monodontidae,Delphinidae,Orcinus orca,Monodon monoceros,"PLANQUE-Bodini, A., Belli...93cd91ea5dae89f043af8cce89e3f705",4,4
+99,Monodontidae,Delphinidae,Orcinus orca,Delphinapterus leucas,"PLANQUE-Bodini, A., Belli...93cd91ea5dae89f043af8cce89e3f705",4,4
+100,Monodontidae,Delphinidae,Orcinus orca,Monodon,"Lintulaakso, K., Tatti, N. and Žliobaitė, I., 2023. Quantifying mammalian diets. Mammalian Biology, 103(1), pp.53-67. https://doi.org/10.1007/s42991-022-00323-6. Accessed at <https://github.com/mammalbase/database/archive/2ecba037a73fb67bc3f3e4b9edf9eabeb3e86889.zip> on 30 Oct 2024.",4,4
+101,Monodontidae,Delphinidae,Orcinus orca,Monodon monoceros,globalbioticinteractions/dunne2016SanakNearshore,4,4
+102,Monodontidae,Delphinidae,Orcinus orca,Monodon monoceros,"diatomsRcool/greenland_interactionsJensen & Christensen (Eds) 2003. The Biodiversity of Greenland - A Country Study. Technical Report 55.  Pinngortitaleriffik, Grønlands Naturinstitut. 165 pp",4,4
+103,Monodontidae,Delphinidae,Orcinus orca,Delphinapterus leucas,"diatomsRcool/greenland_interactionsJensen & Christensen (Eds) 2003. The Biodiversity of Greenland - A Country Study. Technical Report 55.  Pinngortitaleriffik, Grønlands Naturinstitut. 165 pp",4,4
+104,Monodontidae,Delphinidae,Orcinus,Monodon monoceros,"Myers, P., Espinosa, ...26cb4abc9cf6d64e10e7799e5cab8afd",4,4
+105,Monodontidae,Delphinidae,Orcinus,Delphinapterus leucas,"Myers, P., Espinosa, ...26cb4abc9cf6d64e10e7799e5cab8afd",4,4
+106,Mytilidae,Delphinidae,Delphinus delphis,Mytilus edulis,SLB_REF:85760,2,4
+107,Eucalanidae,Pelagiidae,Chrysaora quinquecirrha,Rhincalanus nasutus,"Brose, U. (2018). GlobAL daTabasE of traits and food Web Architecture (GATEWAy) version 1.0 [Data set]. German Centre for Integrative Biodiversity Research (iDiv) Halle-Jena-Leipzig. https://doi.org/10.25829/IDIV.283-3-756. Accessed at <https://github.com/globalbioticinteractions/brose-gateway/archive/c89ac44d03decc76d59908d74e2a5ff6d3cd618d.zip> on 30 Oct 2024.Kroll, unpublished",2,2
+108,Eucalanidae,Pelagiidae,Chrysaora quinquecirrha,Subeucalanus pileatus,"Brose, U. (2018). GlobAL daTabasE of traits and food Web Architecture (GATEWAy) version 1.0 [Data set]. German Centre for Integrative Biodiversity Research (iDiv) Halle-Jena-Leipzig. https://doi.org/10.25829/IDIV.283-3-756. Accessed at <https://github.com/globalbioticinteractions/brose-gateway/archive/c89ac44d03decc76d59908d74e2a5ff6d3cd618d.zip> on 30 Oct 2024.Kroll, unpublished",2,2
+109,Eucalanidae,Pelagiidae,Chrysaora,Eucalanus,globalbioticinteractions/dunne2016SanakNearshore,2,2
+110,Fragilariaceae,Naviculaceae,Ephemera,Synedra,mangal:ref:id:135,1,1
+111,Fragilariaceae,Naviculaceae,Ephemera,Synedra,8c209c9bf9587e954c6e5d3ad9bdc9ae,1,1
+112,Strongylocentrotidae,Gadidae,Gadus macrocephalus,Strongylocentrotus,FB_REF:37513,3,3
+113,Strongylocentrotidae,Gadidae,Melanogrammus aeglefinus,Strongylocentrotus,PLANQUE-Satsepin V.I. 193...622ba4bc10fc52847e291b653c46aa82,3,3
+114,Strongylocentrotidae,Gadidae,Gadus morhua,Strongylocentrotus,"Pinnegar, J.K. (2014). DAPSTOM - An Integrated Database & Portal for Fish Stomach Records. Version 4.7. Centre for Environment, Fisheries & Aquaculture Science, Lowestoft, UK. February 2014, 39pp. Accessed at <https://www.cefas.co.uk/umbraco/CefasPlugins/DapstomSurface/Download?searchType=predator&species=COD&years=2009&years=2006&years=2002&years=1993&years=1990&years=1985&years=1982&years=1979&years=1976&years=1972&years=1965&years=1962&years=1958&years=1955&years=1952&years=1949&years=1936&years=1917&years=1908&years=1905&years=1902&years=1898&years=1893&years=1889&areas=Va&areas=VIIj&areas=IVa%20&areas=VIIg&areas=VIIh&areas=XIVb&areas=VIa&areas=IIa&areas=VIIa&areas=VIIe&areas=VIIf&areas=IVb&areas=IVa&areas=I&areas=IIb&areas=Ib&areas=VIId&areas=IVc&areas=IIb&minlength=0&maxlength=1000&nullLengths=true> on 30 Oct 2024.",3,3
+115,Strongylocentrotidae,Gadidae,Gadus morhua,Strongylocentrotus,"Pinnegar, J.K. (2014). DAPSTOM - An Integrated Database & Portal for Fish Stomach Records. Version 4.7. Centre for Environment, Fisheries & Aquaculture Science, Lowestoft, UK. February 2014, 39pp. Accessed at <https://www.cefas.co.uk/umbraco/CefasPlugins/DapstomSurface/Download?searchType=predator&species=COD&years=2010&years=2007&years=2004&years=1994&years=1991&years=1987&years=1983&years=1980&years=1977&years=1973&years=1968&years=1963&years=1959&years=1956&years=1953&years=1950&years=1937&years=1923&years=1909&years=1906&years=1903&years=1899&years=1894&years=1890&years=1885&areas=VIa&areas=VIIj&areas=VIIa&areas=IIa&areas=Vb2&areas=VIIe&areas=VIIf&areas=IVb&areas=IVa&areas=I&areas=Ib&areas=IVc&areas=Va&areas=Vb1&areas=VIIg&areas=VIIh&areas=IIb&minlength=0&maxlength=1000&nullLengths=true> on 30 Oct 2024.",3,3
+116,Strongylocentrotidae,Gadidae,Gadus morhua,Strongylocentrotus,"Pinnegar, J.K. (2014). DAPSTOM - An Integrated Database & Portal for Fish Stomach Records. Version 4.7. Centre for Environment, Fisheries & Aquaculture Science, Lowestoft, UK. February 2014, 39pp. Accessed at <https://www.cefas.co.uk/umbraco/CefasPlugins/DapstomSurface/Download?searchType=predator&species=COD&years=2011&years=2008&years=2005&years=2001&years=1992&years=1988&years=1984&years=1981&years=1978&years=1974&years=1971&years=1964&years=1961&years=1957&years=1954&years=1951&years=1938&years=1930&years=1913&years=1907&years=1904&years=1901&years=1897&years=1891&years=1888&areas=VIb&areas=XIVb&areas=IIa&areas=VIa&areas=VIIa&areas=IVa&areas=Vb&areas=VIIj&areas=IVb&areas=VIIb&areas=VIIe&areas=VIIf&areas=VIIg&areas=VIIh&areas=IVa&areas=IIb&areas=Ib&areas=IVc&areas=IVb/IVc&minlength=0&maxlength=1000&nullLengths=true> on 30 Oct 2024.",3,3
+117,Strongylocentrotidae,Gadidae,Gadus morhua,Strongylocentrotus,PLANQUE-Satsepin V.I and ...796c234389cde607009e85834de94560,3,3
+118,Strongylocentrotidae,Gadidae,Gadus morhua,Strongylocentrotus droebachiensis,"Almeida, F. (2005) Trophic Ecology of Atlantic Cod, off Cape Cod, MA, from F/V Riena Marie NEC-FA2001-1 in the Gulf of Maine from 2001-2004 (NEC-CoopRes project). Biological and Chemical Oceanography Data Management Office (BCO-DMO). (Version final) Version Date 2005-10-01 [if applicable, indicate subset used]. http://lod.bco-dmo.org/id/dataset/3087. Accessed at <https://datadocs.bco-dmo.org/file/g77yqoBi4lMl6R/cod_troph.csv> on 30 Oct 2024.http://lod.bco-dmo.org/id/dataset/3087",3,3
+119,Strongylocentrotidae,Gadidae,Melanogrammus aeglefinus,Strongylocentrotus,"Pinnegar, J.K. (2014). DAPSTOM - An Integrated Database & Portal for Fish Stomach Records. Version 4.7. Centre for Environment, Fisheries & Aquaculture Science, Lowestoft, UK. February 2014, 39pp. Accessed at <https://www.cefas.co.uk/umbraco/CefasPlugins/DapstomSurface/Download?searchType=predator&species=HAD&years=2011&years=2010&years=2008&years=2006&years=2005&years=2004&years=2002&years=2001&years=1994&years=1993&years=1992&years=1991&years=1990&years=1988&years=1987&years=1986&years=1985&years=1984&years=1983&years=1982&years=1981&years=1979&years=1978&years=1977&years=1968&years=1964&years=1963&years=1961&years=1959&years=1958&years=1957&years=1956&years=1955&years=1954&years=1952&years=1951&years=1950&years=1949&years=1937&years=1936&years=1930&years=1908&years=1907&years=1905&years=1904&years=1903&years=1902&years=1901&years=1894&years=1891&years=1890&years=1889&years=1888&years=1886&years=1885&years=1847&areas=IIa&areas=IVb/IVc&areas=VII&areas=VIIj&areas=VIIa&areas=VIa&areas=VIIg&areas=VIIh&areas=IVa&areas=VIIb&areas=VIIe&areas=VIIf&areas=IVb&areas=IVa&areas=Ib&areas=I&areas=IIb&areas=IVc&areas=VIIIa&minlength=0&maxlength=1000&nullLengths=true> on 30 Oct 2024.",3,3
+120,Strongylocentrotidae,Gadidae,Trisopterus esmarkii,Strongylocentrotus,"PLANQUE-Eriksen, E. 2012....3e6a63750bdc3ab9e8ccce3d3e0ae93f",3,3
+121,Strongylocentrotidae,Gadidae,Melanogrammus aeglefinus,Strongylocentrotus droebachiensis,FB_REF:49358,3,3
+122,Strongylocentrotidae,Gadidae,Melanogrammus aeglefinus,Strongylocentrotus droebachiensis,SLB_REF:49358,3,3
+123,Syngnathidae,Paralichthyidae,Paralichthys californicus,Syngnathus,"BYRNES-Love, M. 1996. Probably More ...",3,3
+124,Syngnathidae,Paralichthyidae,Paralichthys californicus,Syngnathus,"BYRNES-Quast, J. 1968. Observations ...",3,3
+125,Syngnathidae,Paralichthyidae,Paralichthys dentatus,Syngnathus fuscus,"Brose, U. (2018). GlobAL daTabasE of traits and food Web Architecture (GATEWAy) version 1.0 [Data set]. German Centre for Integrative Biodiversity Research (iDiv) Halle-Jena-Leipzig. https://doi.org/10.25829/IDIV.283-3-756. Accessed at <https://github.com/globalbioticinteractions/brose-gateway/archive/c89ac44d03decc76d59908d74e2a5ff6d3cd618d.zip> on 30 Oct 2024.Kroll, unpublished",3,3
+126,Syngnathidae,Paralichthyidae,Paralichthys californicus,Syngnathus,millerse/Seaweeddoi:10.1111/j.1365-2486.2011.02409.x,3,3
+127,Pectinidae,Phocidae,Phoca vitulina,Pleuronectes,globalbioticinteractions/dunne2016SanakNearshore,2,4
+128,Pelagiidae,Ulmaridae,Aurelia labiata,Chrysaora colorata,SLB_REF:7718,2,2
+129,Pelagiidae,Ulmaridae,Aurelia labiata,Chrysaora fuscescens,SLB_REF:7718,2,2
+130,Ulmaridae,Pelagiidae,Chrysaora quinquecirrha,Aurelia aurita,SLB_REF:3031,2,2
+131,Penaeidae,Salmonidae,Salvelinus alpinus alpinus,Penaeidae,mangal:ref:id:16,3,3
+132,Penaeidae,Salmonidae,Salmonidae,Penaeidae,e7d7b1a705113d6efcd8bacce9b9c581,3,3

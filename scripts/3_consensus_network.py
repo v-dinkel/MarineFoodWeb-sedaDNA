@@ -1359,7 +1359,7 @@ if performHTComparison:
 plt.show()
 
 # export the consensus network
-multNet.to_csv(outputdir+"consensus_network.csv", sep=';', index=True, encoding='utf-8')
+multNet.to_csv(outputdir+"KL77_cn.csv", sep=';', index=True, encoding='utf-8')
 exportToGephi(thisG, df_families, tpos, tneg, thisMods, outputdir+"gephi_spieceasi_05.gml", trophicLevels)
 
 flowMetric = "A/DC"

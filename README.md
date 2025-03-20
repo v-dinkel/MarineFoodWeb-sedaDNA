@@ -54,3 +54,12 @@
     - open 5_proxie_corr.py and run it
     - loads and compares IP25 values with ngrip
     - prints correlation coefficients and saves the plot to /plots
+    
+- identify direct and indirect interactions using GloBI
+    - open 6_globi_interactions.py and run it
+    - this script requires a file with query results of the globi database. in this repository this file is provided.
+    - matches the consensus network edges with globi interaction results
+    - identifies direct and indirect interactions
+    - computes randomized null model of randomly occuring interactions
+    - compares with spiec easi results
+    - saves interaction graph in outputs and null model benchmark to plots

@@ -14,6 +14,15 @@ import requests
 import time
 from collections import Counter
 
+def read_config(filename):
+    #read the config file of the project
+    config = {}
+    with open(filename, 'r') as file:
+        for line in file:
+            if line.strip() and not line.startswith("#"):  # Ignore empty lines or comments
+                key, value = line.strip().split(":", 1)
+                config[key.strip()] = value.strip()
+    return config
 
 def msum(A):
     return int(np.sum(np.sum(A)))
@@ -43,6 +52,7 @@ def load_spiec_easi(direct):
     return SE_posneg
 
 def getInteractionDB(net, globi):
+    # this function returns for a given network (net) the reduced (occuring interaction) globi interactions database
     G_net = nx.from_pandas_adjacency(net)
     net_interactions = []
     i = 0
@@ -57,6 +67,9 @@ def getInteractionDB(net, globi):
     return net_interactions
 
 def mergeInteractions(G1, G2):
+    # this function merges the interactions of an input graph G1 with GloBI graph G2
+    # the weight of the interaction is the sum of occurences in G2
+    
     # Normalize edges lexicographically so each edge is stored as (min, max)
     edges_G1 = {tuple(sorted(edge)) for edge in G1.edges()}
     edges_G2 = {tuple(sorted(edge)) for edge in G2.edges()}
@@ -132,23 +145,25 @@ def exportToGephi(G, fileName, troph, globi_list, cn_indirs, G_man1):
     
     f.write("]")
     f.close()
+    
+workdir = read_config("../config.txt")["workdir"]
+outdir = workdir+"output/"
+suppdir = workdir+"supplementary_information/"
+indir = workdir+"input/"
+plotdir = workdir+"plots/"
+G_man1 = nx.read_gml(workdir+"output/cn_spieceasi_05.gml")
 
-G_man1 = nx.read_gml("C:/Users/vdinkel/Desktop/Manuscript/submission_Nature_Communications/revision1/script/cn_spieceasi_05.gml")
-
-# C:\Users\vdinkel\Desktop\Manuscript\submission_Nature_Communications\code\consensus_network\input\F_KL-77.csv
 path = "C:/Users/vdinkel/Desktop/Manuscript/submission_Nature_Communications/revision1/script/globiDB_downloads/"
-# GLOBI
-filename = "db_allresult_final.csv"
-load_df = pd.read_csv(path+filename)
+# Load GloBI file
+load_df = pd.read_csv(indir+"db_allresult_final.csv")
 predeats_df = load_df[load_df["interaction_type"].isin(["preysOn", "eats"])]
 predeats_ = predeats_df[["fam1", "fam2", "source_taxon_name", "interaction_type", "target_taxon_name", "study_title"]]
 
 # ADD TROPHIC
-netsdir = "C:/Users/vdinkel/Desktop/Manuscript2/scripts/man1/"
-trophic = pd.read_csv(netsdir+"trophic_levels.csv", sep=",", header=None, index_col=False, names=['Group', 'Level'])
-fam_trophic = pd.read_csv(netsdir+"families.csv", sep=";", header=None, index_col=False, names=['Family', 'Group'])
+trophic = pd.read_csv(indir+"trophic_levels.csv", sep=",", header=None, index_col=False, names=['Group', 'Level'])
+fam_trophic = pd.read_csv(indir+"families.csv", sep=";", header=None, index_col=False, names=['Family', 'Group'])
 
-# Merge Globo & Troph
+# Merge Globi & Troph
 troph = pd.merge(fam_trophic, trophic, left_on="Group", right_on="Group", how='left')
 predeats_ = pd.merge(predeats_, troph[["Family", "Level"]], left_on="fam1", right_on="Family", how='left')
 predeats_ = predeats_.rename(columns={'Level': 'fam1_troph'})
@@ -159,15 +174,14 @@ predeats_ = predeats_.drop_duplicates()
 exclude_rows = (predeats_["fam1"] == "Fragilariaceae") & (predeats_["fam2"] == "Aplysiidae") # the result of the two families is a database lookup mismatch
 predeats_ = predeats_[~exclude_rows]
 
-#grouped_preds = predeats_[["fam1", "fam2"]].groupby(['fam1', 'fam2']).size().reset_index(name='count')
-
+# identify the trophic level of the interaction. two interacting families can have different trophic levels. we want to assign the interaction to higher level.
 grouped = predeats_.groupby(['fam1', 'fam2']).agg(
     count=('fam1', 'size'),                   # Count occurrences
     max_troph1=('fam1_troph', 'max'),          # Maximum of fam1_troph
     max_troph2=('fam2_troph', 'max')            # Maximum of fam2_troph
 ).reset_index()
 
-# Compute the maximum between 'max_troph' and 'max_trop' for each group
+# Compute the maximum between 'max_troph1' and 'max_troph2' for each group
 grouped['troph'] = grouped[['max_troph1', 'max_troph2']].max(axis=1)
 grouped_preds = grouped.drop(columns=['max_troph1', 'max_troph2'])
 
@@ -179,19 +193,23 @@ for i in grouped_preds.index:
     trophic_level = grouped_preds.iloc[i]["troph"]
     G_globi.add_edge(edge_0, edge_1, weight=edge_count, troph=trophic_level)
 
-cn = loadConsensusEdgelist("C:/Users/vdinkel/Desktop/Manuscript2/scripts/man1/cn_gephi_data_edges.csv")
+# load the consensus network
+cn = pd.read_csv(outdir+"KL77_cn.csv", delimiter=";", header=0, index_col=0)
 G_cn = nx.from_pandas_adjacency(cn)
 
-SE = load_spiec_easi("C:/Users/vdinkel/Desktop/Manuscript/submission_Nature_Communications/revision1/script/KL-77_spieceasi_weighted")
-se_thresh = 0.3365
+# load the weighted spiec easi network to get the same amount of edges
+SE = load_spiec_easi(outdir+"KL-77_spieceasi_weighted")
+se_thresh = 0.3365 # this empirical threshold results in 212 edges
 se = SE.where(abs(SE) > se_thresh, 0.0)
 se = se.where(se == 0, 1)
 G_se = nx.from_pandas_adjacency(se)
 
+# get the interactions which occur in the networks and save the interactions of the consensus network
 cn_globi_ret = getInteractionDB(cn, predeats_)
 se_globi_ret = getInteractionDB(se, predeats_)
-cn_globi_ret.to_csv("C:/Users/vdinkel/Desktop/Manuscript/submission_Nature_Communications/revision1/script/cn_globi_list.csv")
+cn_globi_ret.to_csv(outdir+"cn_globi_list.csv")
 
+# get the trophic levels of the interactions and sum the occurences for each level
 cn_troph_levels = []
 for i in cn_globi_ret.index:
     cn_troph_levels.append(max(cn_globi_ret.iloc[i]["fam1_troph"], cn_globi_ret.iloc[i]["fam2_troph"]))
@@ -204,10 +222,10 @@ cn_trophs = Counter(cn_troph_levels)
 se_trophs = Counter(se_troph_levels)
 
 ## FAMILY COUNTS PER TROHIC LAYER
+'''
 troph["Family"].values
-M = pd.read_csv("C:/Users/vdinkel/Desktop/Manuscript/submission_Nature_Communications/code/consensus_network/input/F_KL-77.csv")
+M = pd.read_csv(indir+"F_KL-77.csv")
 new_columns = troph["Family"].values
-#df = df.drop('Family')
 test = troph.T
 test.columns = new_columns
 test = test.drop("Family")
@@ -216,6 +234,7 @@ matching_levels = test.reindex(columns=M.columns[1:]).fillna(0)
 M.loc['Level'] = matching_levels.iloc[1]
 M = pd.concat([M.loc[['Level']], M.loc[M.index != 'Level']])
 M.to_csv("C:/Users/vdinkel/Desktop/famtroph.csv")
+'''
 
 def z_score(values, x):
     values = np.array(values)
@@ -278,16 +297,21 @@ def get_shortest_paths(G):
         
     return troph_distances, diameters, shortest_paths, sorted(longest_chains, reverse=True), longest_chains_explicit, lcc_sizes
 
+# get globi interactions for cn and se networks
 G_cn, cn_globi_edge_overlap, cn_globi_troph_counts = mergeInteractions(G_cn, G_globi)
 G_se, se_globi_edge_overlap, se_globi_troph_counts = mergeInteractions(G_se, G_globi)
 
+# randomization for null model
 rnd_edges = []
 rnd_trophs = []
+
+# get only the occuring interactions and the corresponding interaction graph
 cn_interaction_edges = [edge for edge in G_cn.edges if G_cn.edges[edge[0], edge[1]]["weight"] > 0]
 G_cn_interactions = G_cn.edge_subgraph(cn_interaction_edges)
 se_interaction_edges = [edge for edge in G_se.edges if G_se.edges[edge[0], edge[1]]["weight"] > 0]
 G_se_interactions = G_se.edge_subgraph(se_interaction_edges)
 
+# get statistics of the interaction graphs
 cn_troph_distances, cn_diamters, cn_shortest_paths, cn_longest_chains, cn_longest_chains_explicit, cn_lcc_sizes = get_shortest_paths(G_cn_interactions)
 se_troph_distances, se_diamters, se_shortest_paths, se_longest_chains, se_longest_chains_explicit, se_lcc_sizes = get_shortest_paths(G_se_interactions)
 
@@ -321,13 +345,12 @@ cn_indir_edges = len(cn_indirs.keys()) # wie viele kanten haben keine direkte ve
 cn_indir_edges_sum = np.sum([cn_indirs[k] for k in cn_indirs.keys()]) # was ist die summe dieser gemeinsamen nachbarn?
 cn_indir_interactions_sum = np.sum([cn_ind_interactions[k] for k in cn_ind_interactions.keys()]) # wie viele interaktionen werden durch diese indirekten verbindungen abgedeckt?
 
-#todo: spiec easi anpassung
 se_indirs, se_ind_interactions = get_indirect_interactions(G_se, G_globi) # menge der indirekten verbindungen zwischen einem paar, menge der interaktionen abgedeckt von den indirekten verbindungen
 se_indir_edges = len(se_indirs.keys()) # wie viele kanten haben keine direkte verbindung in globi, dafür aber gemeinsame nachbarn? 81
 se_indir_edges_sum = np.sum([se_indirs[k] for k in se_indirs.keys()]) # was ist die summe dieser gemeinsamen nachbarn?
 se_indir_interactions_sum = np.sum([se_ind_interactions[k] for k in se_ind_interactions.keys()]) # wie viele interaktionen werden durch diese indirekten verbindungen abgedeckt?
 
-n_rnd_runs = 10000
+n_rnd_runs = 100 # randomization runs (10000)
 rnd_interaction_edges = []
 rnd_runs = []
 rnd_indir_edges = []
@@ -360,14 +383,16 @@ empiricalP(np.array(rnd_indir_edges_sum), cn_indir_edges_sum) #= 0
 empiricalP(np.array(rnd_indir_interactions_sum), cn_indir_interactions_sum) # = 0
 # --> Verbundene Kanten im CN ergeben sich durch indirekte abhängigkeiten zu gemeinsamen nachbarn
 
-pd.DataFrame(rnd_edges).to_csv("C:/Users/vdinkel/Desktop/Manuscript/submission_Nature_Communications/revision1/script/rnd_edges.csv")
-pd.DataFrame(rnd_trophs).to_csv("C:/Users/vdinkel/Desktop/Manuscript/submission_Nature_Communications/revision1/script/rnd_trophs.csv")
+# store randomization runs. comment the randomization out if it was done already and just load the stored files
+pd.DataFrame(rnd_edges).to_csv(outdir+"/rnd_interaction_edges.csv")
+pd.DataFrame(rnd_trophs).to_csv(outdir+"/rnd_interaction_trophs.csv")
 
-pd_rnd_edges = pd.read_csv("C:/Users/vdinkel/Desktop/Manuscript/submission_Nature_Communications/revision1/script/rnd_edges.csv")
-pd_rnd_trophs = pd.read_csv("C:/Users/vdinkel/Desktop/Manuscript/submission_Nature_Communications/revision1/script/rnd_trophs.csv")
+# load randomization results
+pd_rnd_edges = pd.read_csv(outdir+"/rnd_interaction_edges.csv")
+pd_rnd_trophs = pd.read_csv(outdir+"/rnd_interaction_trophs.csv")
 
-#cn_globi_ret, sn_globi_ret are the lists of Globi interactions
-exportToGephi(G_cn, netsdir+"cn_globi_gephi_5.gml", troph, cn_globi_ret, cn_indirs, G_man1)
+# cn_globi_ret, sn_globi_ret are the lists of Globi interactions
+exportToGephi(G_cn, outdir+"cn_globi_gephi.gml", troph, cn_globi_ret, cn_indirs, G_man1)
 
 # FIRST PLOT
 fig, axs = plt.subplots(1, 3, sharey=False, tight_layout=True, figsize=(19, 6))
@@ -436,10 +461,10 @@ legend_handles = [
 
 # Add a single legend outside the subplots
 fig.legend(handles=legend_handles, loc='upper center', bbox_to_anchor=(0.5, 1.05), ncol=3)
-plt.savefig("C:/Users/vdinkel/Desktop/Manuscript/submission_Nature_Communications/revision1/script/new_plots/S4_troph_overlap_A.png")
+plt.savefig(plotdir+"S4_troph_overlap_A.png")
 plt.show()
 
-##### SECOND PLOT
+##### SECOND PLOT - this was removed
 '''
 second_bins = 16
 fig, axs = plt.subplots(1, 3, sharey=False, tight_layout=True, figsize=(19, 6))
@@ -541,7 +566,7 @@ legend_handles = [
 
 # Add a single legend outside the subplots
 fig.legend(handles=legend_handles, loc='upper center', bbox_to_anchor=(0.5, 1.05), ncol=3)
-plt.savefig("C:/Users/vdinkel/Desktop/Manuscript/submission_Nature_Communications/revision1/script/new_plots/S4_troph_overlap_B.png")
+plt.savefig(plotdir+"S4_troph_overlap_B.png")
 plt.show()
 
 # THIRD - INDIRECT EDGE COUNTS
