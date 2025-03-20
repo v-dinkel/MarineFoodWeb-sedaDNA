@@ -8,14 +8,18 @@
 - <b>Grant_age_RSL_col_EF.txt</b> | Relative sea level reconstruction
 - <b>ngrip.csv</b> | NGRIP proxy for temperature
 - <b>trophic_levels.csv</b> | Mapping of 16 taxonomic groups to 4 trophic levels
+- <b>db_allresutls_final.csv</> | GloBI interactions results for the 297 marine families
+- <b>IP25_77KL.csv</b> | IP25 values for the 77KL core
+- <b>interpol_IP25_SSTs_stack_average_praetorius_NAreplaced.txt</b> | IP25 values for the 12KL core
 ## Scripts
-- <b>inferNets.R</b> | R script which infers 6 network types (Spearman, ecoCopula, Spiec-Easi, CCREPE, SPARCC, Propr)
-- <b>inferESABO.py</b> | python implementation to infer the ESABO network
-- <b>consensus_network.py</b> | Main analysis python file to build consensus network and perform robustnes and energy flow analysis
-- <b>fam_abunds.py</b> | Compositional analysis & plot genearion
-- <b>compare_BN_HT.py</b> | Comparison script of the consensus network with the spiec-easi network being sparsificatied by association strength 
-## Output
-- <F_KL-77_rel.csv> | the relative abundance matrix 
+- <b>1_inferESABO.py</b> | python implementation to infer the ESABO network
+- <b>2_inferNets.R</b> | R script which infers 6 network types (Spearman, ecoCopula, Spiec-Easi, CCREPE, SPARCC, Propr)
+- <b>3_consensus_network.py</b> | Main analysis python file to build consensus network and perform robustnes and energy flow analysis
+- <b>4_fam_abunds.py</b> | Compositional analysis & plot genearion
+- <b>5_proxie_corr.py</b> | Correlates IP25 proxies from core 77KL and 12KL with NGRIP
+- <b>6_globi_interactions.py</b> | Compares the consensus network (and spiec easi) with GloBI to identify direct and indirect interactions.
+- <b>7_module_maturity_plots.py</b> | Flow analysis of a module, specifically bottom-up, top-down and intraguild flows compared between two module states (interglacial and glacial cluster)
+
 
 ## Setup Workflow
 - Setup your Python and R environment as described in this project: https://github.com/v-dinkel/FoodWeb_gLV
@@ -72,4 +76,6 @@
     
 - get flow metrics of the module ig1
     - open 7_module_maturity_plots.py and run it
-    - 
+    - computes the flow metrics of module ig1 and creates plots
+    - divides the analysis into bottom-up, top-down and intraguild flows
+    - saves the plots
