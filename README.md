@@ -9,7 +9,7 @@
     - [Zenodo](https://zenodo.org/records/10064386)
     - The resulting Kraken2 reports from step2 shotgun sequencing were merged using this command:
         ```bash
-          awk  'BEGIN{FS=OFS="\t"} {print FILENAME, $0}' *report | awk 'BEGIN{FS=OFS="\t"} {gsub(/^[ \t]+/, "", $7)}1' > STBBering_mergedandpaired_dep_cp08_uniq.txt
+          awk  'BEGIN{FS=OFS="\t"} {print FILENAME, $0}' *report | awk 'BEGIN{FS=OFS="\t"} {gsub(/^[ \t]+/, "", $7)}1' > KL-77_nt0.2.txt
           ```
     - the merged Kraken2 report file was then used to filter the families clade counts, resulting in the given F_KL-77.csv file
 - **families.csv** | Mapping of 297 families to 16 taxonomic groups.
