@@ -619,7 +619,6 @@ for k in nodesList:
     except:
         import pdb; pdb.set_trace()
 
-import pdb; pdb.set_trace()
 np.warnings.filterwarnings('ignore')
 
 # get single network coverage statistics of the CN network
@@ -1056,20 +1055,23 @@ delpath_5 = ["Clupeidae", "Balaenopteridae", "Mytilidae", "Delphinidae"]
 #    print(dpath, len(this_lcc))
 #    robG = nx.subgraph(robG, this_lcc).copy()
 
+print("starting robustness: null distribution")
 i = 0
+nruns = 10 # how many runs for the null distribution (1000)
 if runRobustness:
     # get the robuistnes statistics including null distributions and plots for the selected paths
     del_modules = [0, 2, 5] # ids of the modules
     del_critpaths = [delpath_0, delpath_2, delpath_5] # selection of corresponding critical paths
-    nruns = 1000 # how many runs for the null distribution
+    
     for delmod in del_modules:
+        print("-- delmod: ", delmod)
         testCom = list(thisMods['comms'][delmod])
         lcc_G = nx.subgraph(thisG, list(max(nx.connected_components(thisG), key=len))).copy()
         rand_means, rand_stds = moduleRobustness(lcc_G, testCom, nruns, normalized = True, critpath = del_critpaths[i])
         i += 1
     lcc_G = nx.subgraph(thisG, list(max(nx.connected_components(thisG), key=len))).copy()
     getLCCRobustness(lcc_G, lcc_G.nodes, nruns, normalized = True)
-
+print("-- done robustness: null distribution")
 # FLOW METRICS: ASCNENDENCY
 
 def getFamMod(fam, mods):
