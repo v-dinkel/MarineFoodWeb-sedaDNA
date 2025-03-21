@@ -605,10 +605,6 @@ thisMods = modcorrs(thisNet, tpos, tneg, 0.0)
 trDict = {"1": [], "2": [], "3": [], "4": []} # dictionary with trophic level as key to get all families of a trophic level
 trDict2 = {} # dictionary with taxon as key and value = trophic level
 
-# save the file for future plots
-with open(outputdir+"troph_level_dict.json", 'w') as json_file:
-    json.dump(trDict, json_file, indent=4)
-
 nodesList = list(thisG.nodes)
 for k in nodesList:
     try:
@@ -618,6 +614,10 @@ for k in nodesList:
         trDict2[k] = trLevel
     except:
         import pdb; pdb.set_trace()
+        
+# save the file for future plots
+with open(outputdir+"troph_level_dict.json", 'w') as json_file:
+    json.dump(trDict, json_file, indent=4)
 
 np.warnings.filterwarnings('ignore')
 
