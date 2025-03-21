@@ -30,7 +30,7 @@ if (!require(here)) install.packages("here")
 library(here)
 
 # Set the working directory to your root of the repository
-workdir <- "/home/viktor/project_migration/MarineFoodWeb-sedaDNA/"
+workdir <- "/home/viktor/MarineFoodWeb-sedaDNA/"
 
 # Load KL-77 Dataset
 M <- read.csv(here(workdir, "input/F_KL-77.csv"), header = TRUE)
@@ -149,7 +149,7 @@ net_spearman <- netConstruct(M_rel,
 A_spearman <- net_spearman$adjaMat1
 diag(A_spearman) <- 0
 sum(A_spearman)
-write.table(s_A_spearman, here(workdir, "output/KL-77_spearman.csv"), row.names = TRUE, col.names = TRUE, sep=";")
+write.table(A_spearman, here(workdir, "output/KL-77_spearman.csv"), row.names = TRUE, col.names = TRUE, sep=";")
 
 # NGRIP
 ngrip <- read.csv(here(workdir, "input/ngrip.csv"), header = TRUE, sep = "\t")

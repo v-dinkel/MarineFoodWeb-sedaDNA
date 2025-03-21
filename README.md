@@ -31,6 +31,12 @@
 
 ## Setup Workflow
 
+### Clone Repository
+To get started, clone this repository into your working directory:
+```bash
+git clone https://github.com/v-dinkel/MarineFoodWeb-sedaDNA.git
+```
+
 ### Environment Setup
 Follow the setup instructions in the [FoodWeb_gLV repository](https://github.com/v-dinkel/FoodWeb_gLV).
 
@@ -44,12 +50,6 @@ Follow the setup instructions in the [FoodWeb_gLV repository](https://github.com
 
 #### 2. R Environment Setup
 - Open `2_inferNetworks.R` and update `workdir` to match your local folder path.
-
-### Clone Repository
-To get started, clone this repository into your working directory:
-```bash
-git clone https://github.com/v-dinkel/MarineFoodWeb-sedaDNA.git
-```
 
 ## Analysis Workflow
 
