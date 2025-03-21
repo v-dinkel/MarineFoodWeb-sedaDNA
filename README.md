@@ -74,21 +74,22 @@ Follow the setup instructions in the [FoodWeb_gLV repository](https://github.com
   - Energy flow metrics computation (relative ascendency of LCC and modules).
 - Outputs:
   - Consensus network as a **.csv adjacency matrix**.
-  - **Gephi files**, additional results in `/plots` and `/supplementary_information`.
+  - **Gephi compatible (gml) file**, additional results in `/plots` and `/supplementary_information`.
+      - run Gephi and import .gml file for further consensus network analyses or visualizations.
 
 ### 4. Plot Family Stratigraphy
 - Run `4_fam_abunds.py`.
-- Output: Stratigraphy plots saved in `/plots`.
+- Output: Stratigraphy plot saved in `/plots`.
 
 ### 5. Correlate IP25 and NGRIP
 - Run `5_proxie_corr.py`.
-- Compares IP25 values with NGRIP.
+- Compares IP25 values of cores 77KL and 12KL with NGRIP.
 - Outputs correlation coefficients and plots in `/plots`.
 
 ### 6. Identify Direct and Indirect Interactions (GloBI)
 - Run `6_globi_interactions.py`.
 - Requires a pre-generated GloBI query results file (included in the repository).
-- Matches consensus network edges with GloBI interactions.
+- Matches consensus network edges with GloBI interactions (direct and indirect).
 - Computes randomized null model for interaction occurrences.
 - Compares results with Spiec-Easi.
 - Outputs interaction graph (`outputs/`) and null model benchmarks (`plots/`).
