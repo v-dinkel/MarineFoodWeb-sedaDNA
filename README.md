@@ -1,12 +1,18 @@
 # Marine Food Web Analysis
 This repository houses code and sedaDNA-data from the Bering Sea 77KL-Core for analyzing climate-induced changes in marine food webs using and network analysis techniques and the consensus method. This is part of a manuscript:
 
-## Title:
-**Climate-Driven Functional Shifts in Marine Food Webs from sedaDNA and Network Analysis**
-## List of authors
-Viktor Dinkel1,2, Marc-Thorsten Hütt2, Ulrike Herzschuh1, Stella Z. Buchwald1†, Kathleen R. Stoof-Leichsenring1*
-1 Alfred-Wegener-Institute, Polar Terrestrial Environmental Systems, Potsdam, Germany (viktor.dinkel@awi.de)
-2 Constructor University Bremen, Germany
+# Climate-Driven Functional Shifts in Marine Food Webs from sedaDNA and Network Analysis
+
+## Authors  
+- **Viktor Dinkel** (¹,²) – [viktor.dinkel@awi.de](mailto:viktor.dinkel@awi.de)  
+- **Marc-Thorsten Hütt** (²)  
+- **Ulrike Herzschuh** (¹)  
+- **Stella Z. Buchwald** (¹) †  
+- **Kathleen R. Stoof-Leichsenring** (¹) *  
+
+## Affiliations  
+¹ Alfred-Wegener-Institute, Polar Terrestrial Environmental Systems, Potsdam, Germany  
+² Constructor University Bremen, Germany  
 
 ## Content Description
 
