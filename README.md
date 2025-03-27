@@ -64,6 +64,9 @@ Follow the setup instructions in the [FoodWeb_gLV repository](https://github.com
   conda install spyder-kernels=3.0
   ```
 - Open `config.txt` and update `workdir` to match your local folder path.
+- Open Spyder and configure to use the Python interpreter from your environment
+  - Navigate to Tools > Preferences > Python Interpreter
+  - Select: `/home/user/miniforge3/envs/foodweb_glv/bin/python`
 
 #### 2. R Environment Setup
 - Open `2_inferNetworks.R` and update `workdir` to match your local folder path.
