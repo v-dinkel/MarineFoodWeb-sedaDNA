@@ -59,6 +59,9 @@ Follow the setup instructions in the [FoodWeb_gLV repository](https://github.com
   ```bash
   conda activate FoodWeb_gLV
   conda install scikit-learn
+  conda install seaborn
+  conda install networkx=2.6.3
+  conda install spyder-kernels=3.0
   ```
 - Open `config.txt` and update `workdir` to match your local folder path.
 
