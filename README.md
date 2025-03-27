@@ -88,6 +88,7 @@ Follow the setup instructions in the [FoodWeb_gLV repository](https://github.com
   - Positive/negative NGRIP correlation linkage analysis.
   - Network coverage statistics.
   - Network export to **Gephi-compatible (.gml) format**.
+    - to use it in Gephi (https://gephi.org/), go to File -> Import Table -> select the .gml file -> select "undirected" in the dropdown
   - Computation of network statistics (modularity, composition, trophic levels, etc.).
   - Robustness analysis (set `runRobustness = False` to skip, increase nruns=1000 for more robust null distribution).
   - Comparison with Spiec-Easi network.
