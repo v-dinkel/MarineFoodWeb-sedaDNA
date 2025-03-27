@@ -391,8 +391,8 @@ width = 0.35  # Width of bars
 fig, ax = plt.subplots(figsize=(7, 5))
 
 # Plot bars for Glacial and Interglacial
-ax.bar(x - width/2, glacial_values, width, label="IG2 Cluster 0", color=dec_col)
-ax.bar(x + width/2, interglacial_values, width, label="IG2 Cluster 1", color=inc_col)
+ax.bar(x - width/2, glacial_values, width, label="IG1 Cluster 0", color=dec_col)
+ax.bar(x + width/2, interglacial_values, width, label="IG1 Cluster 1", color=inc_col)
 
 # Labels and legend
 ax.set_ylabel("% of Relative Ascendency")
