@@ -116,7 +116,7 @@ write.table(A_propr, here(workdir, "output/KL-77_propr.csv"), row.names = TRUE, 
 
 # Sparcc
 # Using M_rel returns an empty network. Hence, the raw counts are used with intrinsic "TSS" normalization
-net_sparcc <- netConstruct(M,
+net_sparcc <- netConstruct(as.matrix(M),
                              dataType = "counts",
                              measure = "sparcc",
                              filtSamp = "none",
